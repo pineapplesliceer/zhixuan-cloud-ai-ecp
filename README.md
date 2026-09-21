@@ -1,20 +1,28 @@
 # 智选云 AI 电商在线售货系统 · AI-ECP
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-online-success?style=flat-square)](https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Tech: Vanilla JS](https://img.shields.io/badge/Tech-Vanilla_JS-yellow.svg?style=flat-square)](#技术栈)
-[![AI Capabilities](https://img.shields.io/badge/AI-3_Capabilities-purple.svg?style=flat-square)](#-ai-能力引擎)
+# 🚀 一键直达动态电商应用
+
+## 👉 https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host/app.html 👈
 
 > 支持 **智能客服 / 智能选品 / 智能组货** 三项 AI 能力的电商在线售货系统；
 > 商品品类由用户以 JSON 文本自定义，系统解析后自动确立品类结构与属性 Schema，**新增品类无需发版**。
 
-## 🌐 在线演示
+---
 
-**主站（含 22 幅 UML 图与正式报告）**：
-👉 https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host/
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-online-success?style=flat-square)](https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host)
+[![App SPA](https://img.shields.io/badge/📱_App_SPA-Direct_Link-orange?style=flat-square)](https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host/app.html)
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue?style=flat-square)](https://pineapplesliceer.github.io/zhixuan-cloud-ai-ecp/app.html)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Tech: Vanilla JS](https://img.shields.io/badge/Tech-Vanilla_JS-yellow.svg?style=flat-square)](#技术栈)
+[![AI Capabilities](https://img.shields.io/badge/AI-3_Capabilities-purple.svg?style=flat-square)](#-ai-能力引擎)
 
-**动态电商 SPA 直达**（推荐体验此入口）：
-👉 https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host/app.html
+## 🌐 三个访问入口
+
+| # | 入口 | 用途 |链接 |
+|---|------|------|------|
+| 1️⃣ | **动态电商 SPA 直达**（推荐） | 体验完整的 AI 三能力 | https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host/app.html |
+| 2️⃣ | **GitHub Pages 镜像** | GitHub 域名打开 app.html | https://pineapplesliceer.github.io/zhixuan-cloud-ai-ecp/app.html |
+| 3️⃣ | **主站**（含 22 幅 UML 图与正式报告） | 浏览完整成果包 | https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host/ |
 
 打开后建议体验路径：
 - 🏠 首页 → 浏览商品 → 体验「智能组货」一键加购
