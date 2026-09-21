@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1F4E79" />
+  <title>智选云 · AI 电商在线售货系统（动态 Demo）</title>
+  <link rel="stylesheet" href="assets/css/app.css" />
+</head>
+<body>
+
+<header class="app-topbar">
+  <div class="app-topbar-inner">
+    <a class="app-brand" href="#home" data-view="home">
+      <div class="app-brand-mark">AI</div>
+      <div class="app-brand-text">
+        <strong>智选云 AI 电商在线售货系统</strong>
+        <em>AI-ECP · Dynamic Demo</em>
+      </div>
+    </a>
+    <div class="app-search">
+      <input id="global-search" placeholder="搜索商品、品牌、品类..." />
+      <button class="ai-btn" id="btn-search-ai">🤖 AI 搜索</button>
+    </div>
+    <nav class="app-topnav">
+      <a href="#home" data-view="home">首页</a>
+      <a href="#category" data-view="category">分类</a>
+      <a href="#recommend" data-view="recommend">AI 选品</a>
+      <a href="#cs" data-view="cs">智能客服</a>
+      <a href="#merchant" data-view="merchant">商家中心</a>
+      <a href="#cart" data-view="cart">🛒 购物车 <span class="badge" id="cart-badge" style="display:none;">0</span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="app-main">
+
+  <!-- ====================== 首页 ====================== -->
+  <section class="app-view" id="view-home">
+    <div class="hero-banner">
+      <div>
+        <h1 id="home-hero-title">智选云 · 你的 AI 购物助手</h1>
+        <div id="home-hero"></div>
+      </div>
+      <div class="hero-stats" id="home-hero-stats"></div>
+    </div>
+
+    <h3 style="margin:28px 0 0;">浏览品类</h3>
+    <div class="cat-grid" id="home-cats"></div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px;">
+      <h3>🔥 热销榜单</h3>
+      <a href="#category" data-view="category" class="muted" style="font-size:13px;">查看全部 →</a>
+    </div>
+    <div class="prod-grid" id="home-hot"></div>
+
+    <section class="ai-section">
+      <div class="head">
+        <div class="badge-ai">AI</div>
+        <div>
+          <h2>智能选品 · 为你推荐</h2>
+          <p>基于你的浏览/购买画像，AI 从协同 / 语义 / 热门多路召回 + 精排打分 + 多样性重排</p>
+        </div>
+      </div>
+      <div id="home-ai-rec"></div>
+    </section>
+  </section>
+
+  <!-- ====================== 分类页 ====================== -->
+  <section class="app-view" id="view-category">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+      <h2 id="cat-title" style="margin:0;">分类</h2>
+      <div class="muted" id="cat-count"></div>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <h3 class="card-title">筛选 <small>由品类 JSON Schema 自动生成</small></h3>
+      <div id="cat-filters"></div>
+    </div>
+    <div class="prod-grid" id="cat-grid" style="margin-top:14px;"></div>
+  </section>
+
+  <!-- ====================== 商品详情 ====================== -->
+  <section class="app-view" id="view-product">
+    <div id="pd-crumb" style="font-size:13px;color:var(--ink-3);margin-bottom:14px;"></div>
+    <div class="pd-layout">
+      <div class="pd-cover" id="pd-cover"></div>
+      <div class="pd-info card">
+        <h1 id="pd-title"></h1>
+        <div class="meta" id="pd-meta"></div>
+        <p class="desc" id="pd-desc"></p>
+        <div id="pd-attrs"></div>
+        <div class="price-row" id="pd-price"></div>
+        <div class="sku-row" id="pd-skus"></div>
+        <div class="qty-row">
+          <span>数量</span>
+          <div class="stepper">
+            <button id="pd-qty-dec">-</button>
+            <input id="pd-qty" value="1" />
+            <button id="pd-qty-inc">+</button>
+          </div>
+          <span class="muted" style="font-size:12px;">库存充足</span>
+        </div>
+        <div class="actions">
+          <button class="btn primary lg" id="pd-add-cart">加入购物车</button>
+          <button class="btn accent lg" id="pd-buy-now">立即购买</button>
+        </div>
+        <div class="ai-hint">
+          💡 <b>AI 提示</b>：你也可以试试下方的「智能组货」，让 AI 为你搭配最合适的组合（库存 / 履约 / 价格 / 毛利四维校验）。
+        </div>
+      </div>
+    </div>
+
+    <!-- 智能组货 -->
+    <div id="pd-bundle"></div>
+
+    <!-- 详情 Tabs -->
+    <div class="pd-tabs">
+      <div class="tabs-nav" id="pd-tab-nav">
+        <div class="tab active" data-tab="detail">商品详情</div>
+        <div class="tab" data-tab="spec">规格参数</div>
+        <div class="tab" data-tab="service">售后服务</div>
+      </div>
+      <div id="pd-tab-pane">
+        <div class="tab-pane active" id="pd-tab-pane-detail"></div>
+        <div class="tab-pane" id="pd-tab-pane-spec">
+          <p>规格参数由所属品类的属性 Schema 自动生成。<br/>商家通过 JSON 自定义品类后，本商品的发布表单、筛选维度、AI 提示词上下文均自动适配，无需发版。</p>
+        </div>
+        <div class="tab-pane" id="pd-tab-pane-service">
+          <p>· 7 天无理由退换<br/>· 全国大部分地区满 99 元包邮<br/>· 电子发票 1-3 个工作日开具<br/>· 订单支持在线申请退款</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 智能选品 ====================== -->
+  <section class="app-view" id="view-recommend">
+    <section class="ai-section">
+      <div class="head">
+        <div class="badge-ai">AI</div>
+        <div>
+          <h2>智能选品 · 个性化推荐</h2>
+          <p>画像 → 多路召回（协同 / 语义 / 热门）→ 精排打分 → 业务规则过滤 → 多样性重排 → 冷启动兜底</p>
+        </div>
+      </div>
+      <div class="trigger-row" id="ai-chips"></div>
+      <div id="ai-rec-list"></div>
+      <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="card">
+          <h4 class="card-title">🎯 决策过程（可观测）</h4>
+          <div id="ai-rec-log"></div>
+        </div>
+        <div class="card">
+          <h4 class="card-title">👤 你的画像</h4>
+          <div id="ai-profile"></div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ====================== 智能客服 ====================== -->
+  <section class="app-view" id="view-cs">
+    <h2 style="margin-top:0;">智能客服 · 意图分流 + RAG + 工具调用</h2>
+    <div class="cs-layout">
+      <aside class="cs-side">
+        <h4>📚 常见问题</h4>
+        <div id="cs-faqs"></div>
+      </aside>
+      <div class="cs-stage">
+        <div class="cs-head">
+          <div class="ai-avatar">AI</div>
+          <div class="meta">
+            <strong>智选云 AI 客服 · 小云</strong>
+            <small><span class="status-dot"></span>在线 · 平均响应 0.3s</small>
+          </div>
+          <span class="status-pill ok">RAG + Tools</span>
+        </div>
+        <div class="cs-stream" id="cs-stream"></div>
+        <div class="cs-process" id="cs-process-log"></div>
+        <div class="cs-input">
+          <textarea id="cs-input" placeholder="输入您的问题，Enter 发送，Shift+Enter 换行"></textarea>
+          <button class="btn primary" id="cs-send">发送</button>
+        </div>
+      </div>
+      <aside class="cs-side">
+        <h4>📊 AI 调用日志</h4>
+        <div id="cs-trace"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ====================== 购物车 ====================== -->
+  <section class="app-view" id="view-cart">
+    <h2 style="margin-top:0;">🛒 我的购物车</h2>
+    <div id="cart-list"></div>
+    <div id="cart-summary"></div>
+  </section>
+
+  <!-- ====================== 结算 ====================== -->
+  <section class="app-view" id="view-checkout">
+    <h2 style="margin-top:0;">📝 订单结算</h2>
+    <div class="card">
+      <h3 class="card-title">收货信息</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <input placeholder="收货人" style="padding:10px;border:1px solid var(--line);border-radius:8px;" />
+        <input placeholder="手机号" style="padding:10px;border:1px solid var(--line);border-radius:8px;" />
+        <input placeholder="省 / 市 / 区" style="grid-column:span 2;padding:10px;border:1px solid var(--line);border-radius:8px;" />
+        <input placeholder="详细地址" style="grid-column:span 2;padding:10px;border:1px solid var(--line);border-radius:8px;" />
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <h3 class="card-title">商品清单</h3>
+      <div id="checkout-items"></div>
+      <div style="text-align:right;margin-top:14px;font-size:14px;color:var(--ink-2);">
+        应付金额：<span id="checkout-total"></span>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <h3 class="card-title">支付方式</h3>
+      <div style="display:flex;gap:10px;">
+        <label style="flex:1;display:flex;align-items:center;gap:8px;padding:12px;border:1px solid var(--primary);border-radius:8px;cursor:pointer;background:var(--primary-soft);">
+          <input type="radio" name="pay" checked /> 💚 微信支付
+        </label>
+        <label style="flex:1;display:flex;align-items:center;gap:8px;padding:12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;">
+          <input type="radio" name="pay" /> 💙 支付宝
+        </label>
+        <label style="flex:1;display:flex;align-items:center;gap:8px;padding:12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;">
+          <input type="radio" name="pay" /> 💳 银联云闪付
+        </label>
+      </div>
+    </div>
+    <div style="margin-top:18px;text-align:right;">
+      <button class="btn primary lg" id="btn-pay">确认支付</button>
+    </div>
+  </section>
+
+  <!-- ====================== 我的订单 ====================== -->
+  <section class="app-view" id="view-orders">
+    <h2 style="margin-top:0;">📦 我的订单</h2>
+    <div id="orders-list"></div>
+  </section>
+
+  <!-- ====================== 商家中心 ====================== -->
+  <section class="app-view" id="view-merchant">
+    <h2 style="margin-top:0;">🏪 商家中心</h2>
+    <div class="merchant-layout">
+      <aside class="merchant-side">
+        <div class="ms-item active" data-view="overview">📊 经营概览</div>
+        <div class="ms-item" data-view="products">📦 商品管理</div>
+        <h4>能力中心</h4>
+        <div class="ms-item" data-view="category-builder">🧩 JSON 自定义品类</div>
+        <div class="ms-item" data-view="orders">🧾 订单管理</div>
+      </aside>
+      <div>
+        <div class="merchant-pane active" id="mp-overview"></div>
+        <div class="merchant-pane" id="mp-products"></div>
+        <div class="merchant-pane" id="mp-orders"></div>
+        <div class="merchant-pane" id="mp-category-builder"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="modal-host"></div>
+
+<!-- =============== 商家中心：JSON 品类自定义面板 =============== -->
+<template id="tpl-category-builder">
+  <div class="card">
+    <h3 class="card-title">🧩 JSON 自定义品类 <small>五步处理链路 · 自动化衍生能力</small></h3>
+    <div class="alert info">
+      <b>使用说明</b>：左侧为 JSON 编辑器，支持直接编辑或选择下方模板，点击「执行导入」后系统将按设计报告 3.6 节定义的「<b>语法校验 → 结构语义校验 → 品类树构建 → 衍生能力生成 → 落库发布</b>」五步链路处理。处理完成后，右侧会同步显示「动态发布表单 / 检索索引映射 / AI 提示词上下文」三类衍生产物。<b>整个过程无需代码改动与系统发版</b>。
+    </div>
+    <div class="ce-layout">
+      <div class="ce-editor">
+        <textarea id="ce-editor" placeholder='在此粘贴或编辑品类 JSON ...'></textarea>
+        <div class="ce-actions">
+          <button class="btn sm" id="ce-tpl-digital">📋 模板：可穿戴设备</button>
+          <button class="btn sm" id="ce-tpl-food">📋 模板：休闲零食</button>
+          <button class="btn sm" id="ce-clear">清空</button>
+          <button class="btn primary" id="ce-execute">▶ 执行五步处理</button>
+        </div>
+        <h4 style="margin-top:18px;">处理过程</h4>
+        <div class="ce-process" id="ce-process"></div>
+      </div>
+      <div>
+        <div class="ce-tabs" id="ce-tab-nav">
+          <div class="t active" data-tab="form">动态表单</div>
+          <div class="t" data-tab="index">索引映射</div>
+          <div class="t" data-tab="prompt">AI 提示词</div>
+        </div>
+        <div id="ce-tab-pane">
+          <div class="ce-tab-pane active" id="ce-pane-form">
+            <div class="alert info">下方为该品类对应的「商品发布表单 Schema」，由 JSON 自动生成。新增商品时直接复用此结构。</div>
+            <div class="form-preview" id="ce-form-preview"></div>
+          </div>
+          <div class="ce-tab-pane" id="ce-pane-index">
+            <div class="alert info">下方为该品类的「检索 / 筛选 / 排序」索引映射，由 JSON 自动生成。</div>
+            <div class="index-preview" id="ce-index-preview">{}</div>
+          </div>
+          <div class="ce-tab-pane" id="ce-pane-prompt">
+            <div class="alert info">下方为系统注入到 AI 提示词中的品类上下文片段，AI 选品 / 组货 / 客服将自动引用。</div>
+            <div class="prompt-preview" id="ce-prompt-preview"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- =============== 我的订单模板（动态填充）=============== -->
+<template id="tpl-orders-list"></template>
+
+<!-- 加载脚本 -->
+<script src="assets/js/data.js"></script>
+<script src="assets/js/category-engine.js"></script>
+<script src="assets/js/ai-engine.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  /* 把商家中心的 JSON 品类构建器面板填充进去 */
+  document.addEventListener('DOMContentLoaded', function () {
+    var tpl = document.getElementById('tpl-category-builder');
+    var host = document.getElementById('mp-category-builder');
+    if (tpl && host) host.appendChild(tpl.content.cloneNode(true));
+  });
+</script>
+
+</body>
+</html>

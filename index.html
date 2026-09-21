@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1F4E79" />
+  <meta name="description" content="智选云 AI 电商在线售货系统 —— 需求分析与系统设计成果站点，含 22 幅 UML 图与两份正式报告。" />
+  <title>首页 · 智选云 AI 电商在线售货系统</title>
+  <link rel="stylesheet" href="assets/style.css" />
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AI</span>
+      <span class="brand-text">
+        <strong>智选云 AI 电商在线售货系统</strong>
+        <em>AI-ECP · AI E-Commerce Platform</em>
+      </span>
+    </a>
+    <input type="checkbox" id="navToggle" class="nav-toggle" hidden />
+    <label for="navToggle" class="nav-btn" aria-label="展开导航"><span></span><span></span><span></span></label>
+    <nav class="mainnav">
+        <a href="index.html" class="active">首页</a>
+        <a href="requirements.html">需求分析报告</a>
+        <a href="design.html">系统设计报告</a>
+        <a href="diagrams.html">UML 图集</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <p class="kicker">AI-ECP · AI E-Commerce Platform · 需求分析与系统设计成果</p>
+        <h1>智选云 AI 电商在线售货系统</h1>
+        <p class="lede">支持<strong>智能客服</strong>、<strong>智能选品</strong>、<strong>智能组货</strong>三项 AI 能力的电商在线售货系统；商品品类由用户以 JSON 文本自定义，系统解析后自动确立品类结构与属性 Schema。全部需求分析与系统设计以 <strong>UML 2.5</strong> 为统一建模语言完成。</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="app.html">▶ 进入动态电商应用</a>
+          <a class="btn" href="requirements.html">阅读需求分析报告</a>
+          <a class="btn" href="design.html">阅读系统设计报告</a>
+          <a class="btn ghost" href="diagrams.html">浏览 UML 图集</a>
+        </div>
+        <div class="alert" style="margin-top:18px;background:#eaf3ff;color:var(--primary);border:1px solid #c2dcff;">
+          <b>🎉 新增动态演示</b>：基于本成果包的设计与建模，构建了完整的动态电商在线售货系统 Demo，包含智能客服、智能选品、智能组货、JSON 自定义品类引擎、商家中心、商品管理、订单管理，可交互体验。
+        </div>
+      </div>
+      <aside class="qr-card">
+        <img src="assets/qrcode.svg" alt="站点访问二维码" />
+        <p class="qr-title">手机扫码访问</p>
+        <p class="qr-url"><code>https://ai-ecp-uml-design.app.workbuddy.host/</code></p>
+        <a class="btn ghost qr-btn" href="assets/qrcode.png" download="AI-ECP-站点二维码.png">下载二维码</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><b>22</b><span>UML 图幅</span></div>
+    <div class="stat"><b>2</b><span>正式报告</span></div>
+    <div class="stat"><b>3</b><span>AI 核心能力</span></div>
+    <div class="stat"><b>27</b><span>功能需求项</span></div>
+    <div class="stat"><b>16</b><span>非功能需求项</span></div>
+    <div class="stat"><b>14</b><span>核心业务规则</span></div>
+  </section>
+
+  <section class="cards">
+    <article class="card">
+      <h3>① 品类自定义（JSON 驱动）</h3>
+      <p>商家提交 JSON 文本声明品类树与属性 Schema，系统执行「语法校验 → 结构语义校验 → 建树 → 衍生生成 → 落库」五步处理，自动产出属性 Schema、动态商品发布表单、检索索引映射与 AI 提示词上下文片段。新增品类<strong>无需发版</strong>。</p>
+      <a href="diagrams.html#g-需求分析">查看图 3-6 / 4-9</a>
+    </article>
+    <article class="card">
+      <h3>② 智能客服（RAG + 工具调用）</h3>
+      <p>以意图分流为核心设计：知识咨询型问题走向量检索增强生成，业务事实型问题走受控工具调用获取真实数据；答复经安全护栏过滤后以流式返回，置信度不足时携带会话摘要转接人工。</p>
+      <a href="diagrams.html#g-系统设计">查看图 3-4 / 4-11</a>
+    </article>
+    <article class="card">
+      <h3>③ 智能选品（多路召回 + 精排）</h3>
+      <p>画像构建 → 多路并行召回（协同过滤 / 向量语义 / 热门新品）→ 精排打分 → 业务规则过滤 → 多样性重排 → 冷启动兜底，行为埋点回流形成自增强闭环。</p>
+      <a href="diagrams.html#g-需求分析">查看图 3-7 / 4-12</a>
+    </article>
+    <article class="card">
+      <h3>④ 智能组货（可售性优先）</h3>
+      <p>把「会推荐」升级为「能成交」：大模型只生成搭配理由，候选商品的库存、履约、价格与毛利全部由业务服务计算校验，只有四维同时成立的组合才会输出，否则降级为单品推荐。</p>
+      <a href="diagrams.html#g-需求分析">查看图 3-8 / 4-13</a>
+    </article>
+    <article class="card">
+      <h3>⑤ 分层架构 + AI 能力中台</h3>
+      <p>表现层、应用层、领域层、智能能力层、基础设施层单向依赖并配合依赖倒置；三项 AI 能力共享模型网关、向量检索、提示词管理与安全护栏，模型与算法组件均可通过配置替换。</p>
+      <a href="diagrams.html#g-系统设计">查看图 4-1 / 4-4 / 4-5</a>
+    </article>
+    <article class="card">
+      <h3>⑥ 可降级、可观测、可追溯</h3>
+      <p>AI 异常不阻断交易主流程，所有 AI 接口在响应中显式返回降级标记；全链路追踪贯通业务与模型调用，记录 token 消耗与护栏命中；需求—用例—UML 图—设计章节建立双向追踪矩阵。</p>
+      <a href="requirements.html#需求追踪矩阵">查看需求追踪矩阵</a>
+    </article>
+  </section>
+
+  <section class="deliver">
+    <h2>成果清单</h2>
+    <table class="dtab">
+      <thead><tr><th>类别</th><th>内容</th><th>数量</th></tr></thead>
+      <tbody>
+        <tr><td>需求分析报告</td><td>AIECP-SRS-001 · Word 文档 + 在线版</td><td>1 份</td></tr>
+        <tr><td>系统设计报告</td><td>AIECP-SDD-001 · Word 文档 + 在线版</td><td>1 份</td></tr>
+        <tr><td>UML 图源文件</td><td>PlantUML 源文件，可独立渲染与二次编辑</td><td>22 个</td></tr>
+        <tr><td>UML 渲染图</td><td>矢量图（SVG）与高分辨率位图（PNG，200 DPI）</td><td>44 幅</td></tr>
+        <tr><td>图集分布</td><td>需求分析阶段 9 幅 · 系统设计阶段 13 幅</td><td>22 幅</td></tr>
+        <tr><td>整合静态站点</td><td>本网站，可离线浏览，适配手机与电脑</td><td>1 套</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="diagram-index">
+    <h2>图幅索引</h2>
+    <ul class="dindex">
+      <li><a href="diagrams.html"><b>图 3-1</b> 系统总体用例图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 3-2</b> 消费者用例图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 3-3</b> 商家与平台管理员用例图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 3-4</b> AI 能力域用例细化图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 3-5</b> 系统功能结构图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 3-6</b> JSON 品类定义导入与解析活动图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 3-7</b> 智能选品推荐活动图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 3-8</b> 智能组货搭配活动图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 3-9</b> 领域概念类图</a><span>需求分析</span></li>      <li><a href="diagrams.html"><b>图 4-1</b> 系统分层包图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-2</b> 核心服务设计类图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-3</b> AI 能力引擎类图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-4</b> 系统组件图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-5</b> AI 能力中台组件与接口图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-6</b> 系统部署图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-7</b> 订单状态图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-8</b> 核心数据模型图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-9</b> 自定义品类 JSON 解析与入库时序图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-10</b> 消费者下单与支付时序图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-11</b> 智能客服咨询时序图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-12</b> 智能选品推荐时序图</a><span>系统设计</span></li>      <li><a href="diagrams.html"><b>图 4-13</b> 智能组货搭配时序图</a><span>系统设计</span></li>
+    </ul>
+  </section>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-text">
+      <p><strong>智选云 AI 电商在线售货系统</strong>（AI-ECP · AI E-Commerce Platform） · 需求分析报告 AIECP-SRS-001 · 系统设计报告 AIECP-SDD-001</p>
+      <p class="muted">本文档集由 UML 2.5 建模生成，图源为 PlantUML，可离线浏览。图集共 22 幅，覆盖用例图、活动图、类图、包图、组件图、部署图、状态图与时序图。</p>
+      <p class="muted">线上地址：<a href="https://ai-ecp-uml-design.app.workbuddy.host/">https://ai-ecp-uml-design.app.workbuddy.host/</a></p>
+    </div>
+    <div class="qr-mini">
+      <img src="assets/qrcode.svg" alt="站点访问二维码" width="104" height="104" />
+      <span>手机扫码访问</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+
+</body>
+</html>

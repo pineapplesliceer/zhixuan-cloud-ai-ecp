@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1F4E79" />
+  <meta name="description" content="智选云 AI 电商在线售货系统 —— 需求分析与系统设计成果站点，含 22 幅 UML 图与两份正式报告。" />
+  <title>系统设计报告（在线版） · 智选云 AI 电商在线售货系统</title>
+  <link rel="stylesheet" href="assets/style.css" />
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AI</span>
+      <span class="brand-text">
+        <strong>智选云 AI 电商在线售货系统</strong>
+        <em>AI-ECP · AI E-Commerce Platform</em>
+      </span>
+    </a>
+    <input type="checkbox" id="navToggle" class="nav-toggle" hidden />
+    <label for="navToggle" class="nav-btn" aria-label="展开导航"><span></span><span></span><span></span></label>
+    <nav class="mainnav">
+        <a href="index.html">首页</a>
+        <a href="requirements.html">需求分析报告</a>
+        <a href="design.html" class="active">系统设计报告</a>
+        <a href="diagrams.html">UML 图集</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap report-layout">
+  <aside class="toc" id="toc">
+    <p class="toc-title">本册目录</p>
+    <ul class="toc-list">
+      <li class="lvl2"><a href="#系统设计报告">系统设计报告</a></li>
+      <li class="lvl2"><a href="#1-1-编写目的">1.1 编写目的</a></li>
+      <li class="lvl2"><a href="#1-2-设计范围">1.2 设计范围</a></li>
+      <li class="lvl2"><a href="#1-3-设计依据">1.3 设计依据</a></li>
+      <li class="lvl2"><a href="#2-1-设计目标">2.1 设计目标</a></li>
+      <li class="lvl2"><a href="#2-2-设计原则">2.2 设计原则</a></li>
+      <li class="lvl2"><a href="#3-1-架构视图总览">3.1 架构视图总览</a></li>
+      <li class="lvl2"><a href="#3-2-分层包图">3.2 分层包图</a></li>
+      <li class="lvl2"><a href="#4-1-核心服务设计类图">4.1 核心服务设计类图</a></li>
+      <li class="lvl3"><a href="#4-1-1-关键类说明">4.1.1 关键类说明</a></li>
+      <li class="lvl2"><a href="#4-2-AI-能力引擎类图">4.2 AI 能力引擎类图</a></li>
+      <li class="lvl3"><a href="#4-2-1-AiCapability-的模板方法">4.2.1 AiCapability 的模板方法</a></li>
+      <li class="lvl2"><a href="#4-3-设计模式应用说明">4.3 设计模式应用说明</a></li>
+      <li class="lvl2"><a href="#5-1-系统组件图">5.1 系统组件图</a></li>
+      <li class="lvl2"><a href="#5-2-AI-能力中台组件与接口">5.2 AI 能力中台组件与接口</a></li>
+      <li class="lvl3"><a href="#5-2-1-核心接口契约">5.2.1 核心接口契约</a></li>
+      <li class="lvl2"><a href="#5-3-部署设计">5.3 部署设计</a></li>
+      <li class="lvl2"><a href="#6-1-订单状态机">6.1 订单状态机</a></li>
+      <li class="lvl2"><a href="#6-2-自定义品类-JSON-解析与入库">6.2 自定义品类 JSON 解析与入库</a></li>
+      <li class="lvl2"><a href="#6-3-下单与支付">6.3 下单与支付</a></li>
+      <li class="lvl2"><a href="#6-4-智能客服咨询">6.4 智能客服咨询</a></li>
+      <li class="lvl2"><a href="#6-5-智能选品推荐">6.5 智能选品推荐</a></li>
+      <li class="lvl2"><a href="#6-6-智能组货搭配">6.6 智能组货搭配</a></li>
+      <li class="lvl2"><a href="#7-1-核心数据模型">7.1 核心数据模型</a></li>
+      <li class="lvl2"><a href="#7-2-核心表清单">7.2 核心表清单</a></li>
+      <li class="lvl2"><a href="#7-3-索引与容量设计">7.3 索引与容量设计</a></li>
+      <li class="lvl2"><a href="#8-1-接口风格与统一约定">8.1 接口风格与统一约定</a></li>
+      <li class="lvl2"><a href="#8-2-关键接口清单">8.2 关键接口清单</a></li>
+      <li class="lvl2"><a href="#8-3-品类导入接口详细设计">8.3 品类导入接口详细设计</a></li>
+      <li class="lvl2"><a href="#8-4-AI-能力接口详细设计">8.4 AI 能力接口详细设计</a></li>
+      <li class="lvl2"><a href="#10-1-代码结构约定">10.1 代码结构约定</a></li>
+      <li class="lvl2"><a href="#10-2-技术选型建议">10.2 技术选型建议</a></li>
+      <li class="lvl2"><a href="#10-3-交付物清单">10.3 交付物清单</a></li>
+      <li class="lvl2"><a href="#10-4-后续演进建议">10.4 后续演进建议</a></li>
+    </ul>
+  </aside>
+  <article class="doc" id="doc">
+<section role="cover">
+  <p class="cover-kicker">系统需求分析与设计文档 · 第 2 册</p>
+  <h1 class="cover-title">智选云 AI 电商在线售货系统</h1>
+  <h2 id="系统设计报告" class="cover-sub">系统设计报告</h2>
+  <p class="cover-en">AI-ECP (AI E-Commerce Platform) — Software Design Description</p>
+  <table class="cover-meta">
+    <tr><td>文档编号</td><td>AIECP-SDD-001</td></tr>
+    <tr><td>文档版本</td><td>V1.0</td></tr>
+    <tr><td>系统代号</td><td>AI-ECP</td></tr>
+    <tr><td>建模语言</td><td>UML 2.5（包图、类图、组件图、部署图、状态图、时序图）</td></tr>
+    <tr><td>上游文档</td><td>《智选云 AI 电商在线售货系统 需求分析报告》AIECP-SRS-001</td></tr>
+    <tr><td>编制日期</td><td>2026 年 9 月</td></tr>
+  </table>
+</section>
+
+<section role="body" data-page-restart="1">
+
+<h1>1 引言</h1>
+
+<h2 id="1-1-编写目的">1.1 编写目的</h2>
+<p>本报告承接《需求分析报告》（AIECP-SRS-001），把需求基线转化为可实现的软件设计。文档以 UML 2.5 为统一建模语言，给出系统的逻辑架构、静态结构、组件契约、部署形态、动态行为、数据模型与接口定义，是开发实现、联调测试与后期演进的直接依据。</p>
+<p>本文档的预期读者包括：系统架构师、后端与前端开发工程师、测试工程师、运维工程师，以及参与项目评审的技术专家。</p>
+
+<h2 id="1-2-设计范围">1.2 设计范围</h2>
+<p>本报告覆盖消费者商城、商家管理后台、运营数据看板三类客户端所共用的服务端系统，以及内建的 AI 能力中台。客户端界面视觉设计、第三方支付与物流系统的内部实现不在本报告范围内。</p>
+
+<h2 id="1-3-设计依据">1.3 设计依据</h2>
+<ul>
+  <li>《智选云 AI 电商在线售货系统 需求分析报告》（AIECP-SRS-001）</li>
+  <li>OAuth2.0 / OpenID Connect 鉴权规范、RESTful API 设计规范</li>
+  <li>OWASP ASVS 应用安全验证标准、OWASP LLM Top 10 大模型应用安全风险</li>
+</ul>
+
+<h1>2 设计目标与原则</h1>
+
+<h2 id="2-1-设计目标">2.1 设计目标</h2>
+<table>
+  <thead><tr><th style="width:16%">目标</th><th style="width:30%">设计含义</th><th>落地手段</th></tr></thead>
+  <tbody>
+  <tr><td>结构可演化</td><td>品类与属性的变化不触碰代码</td><td>品类树与属性 Schema 全部数据化，业务读取 Schema 后动态渲染</td></tr>
+  <tr><td>能力可复用</td><td>三项 AI 能力共享同一套基础设施</td><td>AI 能力中台统一提供模型网关、向量检索、提示词管理、工具注册与安全护栏</td></tr>
+  <tr><td>依赖可替换</td><td>大模型与算法组件可按需替换</td><td>以接口隔离外部依赖，通过工厂与适配器模式实现运行时选择</td></tr>
+  <tr><td>链路可降级</td><td>AI 异常不阻断交易</td><td>AI 调用全部包在降级策略内，超时或异常即回落到规则策略</td></tr>
+  <tr><td>风险可观测</td><td>AI 行为可追溯、成本可控</td><td>全量记录 AI 调用、token 消耗、工具调用与护栏命中</td></tr>
+  </tbody>
+</table>
+
+<h2 id="2-2-设计原则">2.2 设计原则</h2>
+<ul>
+  <li><strong>分层与依赖倒置</strong>：表现层、应用层、领域层、智能能力层、基础设施层自上而下单向依赖；领域层与智能能力层只依赖抽象接口，基础设施层反向实现这些接口。</li>
+  <li><strong>契约先行</strong>：组件之间以接口契约协作，接口一经发布即保持向后兼容；新增字段而非修改字段。</li>
+  <li><strong>关注点分离</strong>：业务编排（应用层）、业务规则（领域层）、AI 决策（智能能力层）、技术实现（基础设施层）四者严格分离。</li>
+  <li><strong>配置优于编码</strong>：提示词、路由权重、召回路数、排序权重、业务过滤规则均以配置形式管理，支持热更新与灰度。</li>
+  <li><strong>可测与可回滚</strong>：所有 AI 能力提供离线回放能力；品类版本支持整体回滚。</li>
+</ul>
+
+<h1>3 总体架构设计</h1>
+
+<h2 id="3-1-架构视图总览">3.1 架构视图总览</h2>
+<p>系统采用分层架构 + 能力中台的组合形态，共分为五层与一个横切公共层：</p>
+<table>
+  <thead><tr><th style="width:18%">层次</th><th style="width:28%">职责</th><th>主要内容</th></tr></thead>
+  <tbody>
+  <tr><td>表现层</td><td>协议适配与视图渲染</td><td>商城端、商家端、运营端三组控制器；统一参数校验与异常转换</td></tr>
+  <tr><td>应用层</td><td>用例编排与事务边界</td><td>品类应用服务、商品应用服务、订单应用服务、AI 应用服务</td></tr>
+  <tr><td>领域层</td><td>业务规则与领域模型</td><td>品类聚合、商品聚合、订单聚合、推荐领域服务、组货领域服务</td></tr>
+  <tr><td>智能能力层</td><td>AI 决策与模型协作</td><td>能力抽象与策略集、模型网关适配、向量检索、提示词模板、工具注册</td></tr>
+  <tr><td>基础设施层</td><td>技术设施实现</td><td>持久化、缓存、消息、检索引擎、外部接口适配器</td></tr>
+  <tr><td>公共层（横切）</td><td>跨层通用能力</td><td>统一响应封装、全局异常体系、通用工具与常量</td></tr>
+  </tbody>
+</table>
+
+<h2 id="3-2-分层包图">3.2 分层包图</h2>
+<p>分层包图给出后端代码的包结构与依赖方向。图中 <code>domain &lt;.. infrastructure</code> 的反向依赖虚线即为依赖倒置的体现：领域层定义仓储接口，基础设施层提供实现。</p>
+<img src="diagrams/04-01_pkg_layered.svg" alt="图 4-1 系统分层包图" />
+<p class="figcap">图 4-1　系统分层包图（源文件 <code>04-01_pkg_layered.puml</code>）</p>
+
+<table>
+  <thead><tr><th style="width:32%">包路径</th><th>说明</th></tr></thead>
+  <tbody>
+  <tr><td>com.aiecp.presentation.mall</td><td>消费者端接口，含商品、购物车、订单、AI 助手入口</td></tr>
+  <tr><td>com.aiecp.presentation.merchant</td><td>商家端接口，含品类导入、商品发布、库存与营销管理</td></tr>
+  <tr><td>com.aiecp.presentation.console</td><td>运营端接口，含看板、权限、模型与知识库配置</td></tr>
+  <tr><td>com.aiecp.application</td><td>应用服务，负责用例编排、事务边界与 DTO 转换</td></tr>
+  <tr><td>com.aiecp.domain</td><td>聚合、实体、值对象与领域服务，不含任何框架依赖</td></tr>
+  <tr><td>com.aiecp.ai</td><td>AI 能力策略、模型适配、检索增强、提示词与工具注册</td></tr>
+  <tr><td>com.aiecp.infrastructure</td><td>仓储实现、缓存、消息、检索引擎与外部系统适配器</td></tr>
+  <tr><td>com.aiecp.common</td><td>统一响应、异常、工具与常量</td></tr>
+  </tbody>
+</table>
+
+<h1>4 静态结构设计</h1>
+
+<h2 id="4-1-核心服务设计类图">4.1 核心服务设计类图</h2>
+<p>核心服务设计类图给出控制层、应用服务层、领域层、智能能力层与仓储层的关键类及其依赖关系。设计上做了三处关键切分：</p>
+<ul>
+  <li>品类导入的「解析 / 校验 / 建树 / 衍生生成」被拆为四个独立领域服务，各自可单独测试与复用；</li>
+  <li>AI 能力以抽象类 <code>AiCapability</code> 为基类，三项能力作为具体策略实现，由 <code>AiCapabilityFactory</code> 按场景选择；</li>
+  <li>仓储以接口形式定义在领域侧，实现类下沉至基础设施层。</li>
+</ul>
+<img src="diagrams/04-02_class_service.svg" alt="图 4-2 核心服务设计类图" />
+<p class="figcap">图 4-2　核心服务设计类图（源文件 <code>04-02_class_service.puml</code>）</p>
+
+<h3 id="4-1-1-关键类说明">4.1.1 关键类说明</h3>
+<table>
+  <thead><tr><th style="width:26%">类 / 接口</th><th style="width:14%">类型</th><th>职责</th></tr></thead>
+  <tbody>
+  <tr><td>CategoryApplicationService</td><td>应用服务</td><td>编排品类导入用例：调用解析器、校验器、树构建器与动态表单生成器，在单个事务内完成落库</td></tr>
+  <tr><td>JsonCategoryParser</td><td>领域服务</td><td>把 JSON 文本反序列化为品类草稿对象；语法异常时返回可定位的错误指针</td></tr>
+  <tr><td>CategorySchemaValidator</td><td>领域服务</td><td>执行编码唯一性、层级深度、类型白名单、枚举完备性、区间合法性与循环引用等 12 项校验，一次性返回全部错误</td></tr>
+  <tr><td>CategoryTreeBuilder</td><td>领域服务</td><td>把品类草稿折叠为品类树，并按继承规则抽取属性 Schema</td></tr>
+  <tr><td>IndexMappingGenerator</td><td>领域服务</td><td>按 <code>filterable</code> / <code>searchable</code> 标记生成检索引擎的字段映射</td></tr>
+  <tr><td>DynamicFormGenerator</td><td>领域服务</td><td>把属性 Schema 转换为前端表单描述（字段类型、校验规则、布局分组）</td></tr>
+  <tr><td>AiApplicationService</td><td>应用服务</td><td>统一 AI 能力入口，做场景鉴权、参数规整、降级控制与结果后处理</td></tr>
+  <tr><td>AiCapabilityFactory</td><td>工厂类</td><td>按场景标识返回对应能力策略；支持运行时注册新能力</td></tr>
+  <tr><td>AiCapability</td><td>抽象类</td><td>定义 <code>execute</code> 模板方法与 <code>buildPrompt</code> / <code>postProcess</code> 两个抽象步骤，体现模板方法模式</td></tr>
+  <tr><td>CategoryRepository</td><td>接口</td><td>品类树的持久化契约，由基础设施层实现</td></tr>
+  </tbody>
+</table>
+
+<h2 id="4-2-AI-能力引擎类图">4.2 AI 能力引擎类图</h2>
+<p>AI 能力引擎类图是 AI 能力中台的静态结构细化，围绕四条主线组织：</p>
+<ul>
+  <li><strong>能力抽象与策略</strong>：<code>AiCapability</code> 作为抽象基类固定执行骨架，三项能力实现差异化提示词构建与后处理；</li>
+  <li><strong>模型适配</strong>：<code>ILlmGateway</code> 作为统一模型契约，本地模型与云端模型各自适配，<code>LlmRouter</code> 负责按策略路由与故障转移；</li>
+  <li><strong>检索增强与工具</strong>：向量检索、重排、提示词模板与工具注册共同构成 RAG 与工具调用能力；</li>
+  <li><strong>会话、安全与可观测</strong>：会话记忆、安全护栏、调用审计与 token 计量对所有能力统一生效。</li>
+</ul>
+<img src="diagrams/04-03_class_ai.svg" alt="图 4-3 AI 能力引擎类图" />
+<p class="figcap">图 4-3　AI 能力引擎类图（源文件 <code>04-03_class_ai.puml</code>）</p>
+
+<h3 id="4-2-1-AiCapability-的模板方法">4.2.1 AiCapability 的模板方法</h3>
+<p><code>AiCapability.execute()</code> 固定以下执行骨架，子类只实现差异化步骤，从而保证三项 AI 能力的安全护栏、审计与降级行为完全一致：</p>
+<ol>
+  <li>输入护栏检查（提示注入、越权意图、敏感词）</li>
+  <li>上下文装配（会话记忆、用户画像、页面上下文、品类 Schema 片段）</li>
+  <li>调用 <code>buildPrompt()</code> 构建提示词（子类实现）</li>
+  <li>按需执行检索增强与工具调用（由子类在提示词中声明的工具集决定）</li>
+  <li>经 <code>ILlmGateway</code> 生成结果</li>
+  <li>调用 <code>postProcess()</code> 做结构化解构与业务校验（子类实现）</li>
+  <li>输出护栏检查与安全过滤</li>
+  <li>写入调用审计与 token 计量</li>
+</ol>
+
+<h2 id="4-3-设计模式应用说明">4.3 设计模式应用说明</h2>
+<table>
+  <thead><tr><th style="width:20%">模式</th><th style="width:26%">应用位置</th><th>解决的问题</th></tr></thead>
+  <tbody>
+  <tr><td>模板方法</td><td>AiCapability 及其子类</td><td>统一 AI 能力的执行骨架与安全约束，避免策略实现者遗漏护栏与审计</td></tr>
+  <tr><td>策略</td><td>CustomerServiceCapability / ProductSelectionCapability / BundleCompositionCapability</td><td>三项 AI 能力的提示词、检索与后处理差异被封装为可替换策略</td></tr>
+  <tr><td>工厂</td><td>AiCapabilityFactory</td><td>按场景标识解耦调用方与具体能力实现，新增能力无需修改调用方</td></tr>
+  <tr><td>适配器</td><td>QwenLlmAdapter / DeepSeekLlmAdapter / CloudApiLlmAdapter</td><td>屏蔽不同模型服务在协议、鉴权与参数上的差异</td></tr>
+  <tr><td>仓储</td><td>CategoryRepository 及其实现</td><td>隔离领域模型与持久化技术，支持替换存储实现</td></tr>
+  <tr><td>建造者</td><td>CategoryTreeBuilder / DynamicFormGenerator</td><td>把复杂的品类树与表单构建过程拆为可测试的分步操作</td></tr>
+  <tr><td>责任链</td><td>业务规则过滤链（下架、无库存、限购、合规）</td><td>推荐结果的过滤规则可插拔、可排序、可单独开关</td></tr>
+  <tr><td>断路器</td><td>LlmRouter 的故障转移</td><td>单一模型服务异常时自动切换，避免级联故障</td></tr>
+  </tbody>
+</table>
+
+<h1>5 组件与部署设计</h1>
+
+<h2 id="5-1-系统组件图">5.1 系统组件图</h2>
+<p>系统组件图从物理实现视角给出组件划分与依赖关系：客户端经接入层（网关、鉴权、限流）访问应用服务层与 AI 能力中台；AI 能力中台通过大模型网关统一出口访问模型，通过向量检索服务访问向量库；数据层由关系库、缓存、检索、向量库、对象存储与消息队列共同构成。</p>
+<img src="diagrams/04-04_comp_overall.svg" alt="图 4-4 系统组件图" />
+<p class="figcap">图 4-4　系统组件图（源文件 <code>04-04_comp_overall.puml</code>）</p>
+
+<h2 id="5-2-AI-能力中台组件与接口">5.2 AI 能力中台组件与接口</h2>
+<p>AI 能力中台组件与接口图以 UML 的「供给接口（ball）」与「需求接口（socket）」刻画组件契约。三个业务能力组件统一供给 <code>IAiCapability</code> 接口，统一需求 <code>ILlmGateway</code> 与 <code>IVectorSearch</code>；智能选品额外需求画像与商品查询接口；智能组货额外需求规则引擎与商品查询接口。这种契约设计使组件可独立替换与独立扩容。</p>
+<img src="diagrams/04-05_comp_ai.svg" alt="图 4-5 AI 能力中台组件与接口图" />
+<p class="figcap">图 4-5　AI 能力中台组件与接口图（源文件 <code>04-05_comp_ai.puml</code>）</p>
+
+<h3 id="5-2-1-核心接口契约">5.2.1 核心接口契约</h3>
+<table>
+  <thead><tr><th style="width:20%">接口</th><th style="width:12%">类型</th><th>契约说明</th></tr></thead>
+  <tbody>
+  <tr><td>IAiCapability</td><td>供给</td><td><code>execute(AiContext): AiResult</code>；约定输入上下文字段、输出结构化结果与降级语义</td></tr>
+  <tr><td>ILlmGateway</td><td>供给 + 需求</td><td><code>chat(Prompt): Completion</code>、<code>stream(Prompt): Flux</code>、<code>embedding(List): List</code></td></tr>
+  <tr><td>IVectorSearch</td><td>供给 + 需求</td><td><code>retrieve(query, topK): List&lt;Chunk&gt;</code>；返回带相似度得分的知识片段</td></tr>
+  <tr><td>IProfileService</td><td>需求</td><td><code>getProfile(userId): Profile</code>；返回偏好品类、价格带与活跃度</td></tr>
+  <tr><td>IProductQuery</td><td>需求</td><td><code>queryByIds</code>、<code>checkAvailability</code>；供 AI 能力做商品事实校验</td></tr>
+  <tr><td>IRuleEngine</td><td>需求</td><td><code>rulesOf(mainSkuId, scene)</code>；返回关联规则候选</td></tr>
+  <tr><td>IAuditLog</td><td>供给</td><td><code>log(AiCallRecord)</code>；统一审计出口</td></tr>
+  </tbody>
+</table>
+
+<h2 id="5-3-部署设计">5.3 部署设计</h2>
+<p>部署图给出生产环境的物理拓扑。整体划分为用户终端、接入与静态资源区、接入区（DMZ）、应用服务区（Kubernetes 集群）、AI 推理区与数据区，第三方服务位于系统信任边界之外。</p>
+<img src="diagrams/04-06_deploy.svg" alt="图 4-6 系统部署图" />
+<p class="figcap">图 4-6　系统部署图（源文件 <code>04-06_deploy.puml</code>）</p>
+
+<table>
+  <thead><tr><th style="width:22%">分区</th><th style="width:26%">部署内容</th><th>设计要点</th></tr></thead>
+  <tbody>
+  <tr><td>接入与静态资源区</td><td>CDN、Nginx 反向代理</td><td>静态资源全量 CDN 化；Nginx 承担 TLS 卸载、压缩与静态缓存</td></tr>
+  <tr><td>接入区（DMZ）</td><td>API 网关节点 ×2</td><td>双向冗余，承担路由、鉴权、限流、熔断与黑白名单</td></tr>
+  <tr><td>应用服务区</td><td>业务服务 Pod、AI 能力服务 Pod、定时任务与消息消费者</td><td>业务与 AI 服务独立部署、独立扩缩容；AI 服务故障不影响业务 Pod</td></tr>
+  <tr><td>AI 推理区</td><td>大模型推理服务、Embedding 与重排服务</td><td>可私有化部署，也可经大模型网关路由至云端 API；支持多模型并行与灰度</td></tr>
+  <tr><td>数据区</td><td>MySQL 主从、Redis 集群、Elasticsearch、向量数据库、Kafka、对象存储</td><td>仅内网可达；读写分离；向量库与检索库独立扩容</td></tr>
+  </tbody>
+</table>
+
+<h1>6 动态行为设计</h1>
+
+<h2 id="6-1-订单状态机">6.1 订单状态机</h2>
+<p>订单状态图定义订单对象从创建到终态的完整生命周期。设计上把「已支付」建模为复合状态，内部包含分单子流程，便于后续扩展多仓拆单与波次分拣。</p>
+<img src="diagrams/04-07_state_order.svg" alt="图 4-7 订单状态图" />
+<p class="figcap">图 4-7　订单状态图（源文件 <code>04-07_state_order.puml</code>）</p>
+
+<table>
+  <thead><tr><th style="width:14%">源状态</th><th style="width:14%">目标状态</th><th style="width:30%">触发事件</th><th>守卫条件</th></tr></thead>
+  <tbody>
+  <tr><td>—</td><td>待支付</td><td>创建订单成功</td><td>库存锁定成功且金额计算完成</td></tr>
+  <tr><td>待支付</td><td>已支付</td><td>支付成功回调</td><td>验签通过且幂等校验通过</td></tr>
+  <tr><td>待支付</td><td>已关闭</td><td>用户取消 / 超时未支付</td><td>解除库存锁定成功</td></tr>
+  <tr><td>已支付</td><td>待发货</td><td>商家确认 / 自动审核通过</td><td>风控校验通过</td></tr>
+  <tr><td>待发货</td><td>已发货</td><td>出库并录入运单号</td><td>运单号非空</td></tr>
+  <tr><td>已发货</td><td>已完成</td><td>确认收货 / 超时自动确认</td><td>无进行中的售后退款单</td></tr>
+  <tr><td>已支付 / 待发货 / 已发货</td><td>退款中</td><td>申请退款</td><td>订单未被关闭</td></tr>
+  <tr><td>退款中</td><td>已退款</td><td>退款成功</td><td>支付网关返回退款成功</td></tr>
+  <tr><td>退款中</td><td>已发货</td><td>商家驳回退款</td><td>订单仍处于可发货状态</td></tr>
+  </tbody>
+</table>
+
+<h2 id="6-2-自定义品类-JSON-解析与入库">6.2 自定义品类 JSON 解析与入库</h2>
+<p>该时序图细化图 3-6 的活动流程，明确了两级校验的先后顺序与两处异常出口，并把「索引映射生成」置于落库之前、事务之外，避免长事务。</p>
+<img src="diagrams/04-09_seq_json_import.svg" alt="图 4-9 自定义品类 JSON 解析与入库时序图" />
+<p class="figcap">图 4-9　自定义品类 JSON 解析与入库时序图（源文件 <code>04-09_seq_json_import.puml</code>）</p>
+
+<h2 id="6-3-下单与支付">6.3 下单与支付</h2>
+<p>下单支付时序图把交易链路的关键一致性点显式表达出来：下单前先锁定库存、支付成功后扣减实际库存、支付结果回调必须幂等、履约通过消息队列解耦触发。</p>
+<img src="diagrams/04-10_seq_order.svg" alt="图 4-10 消费者下单与支付时序图" />
+<p class="figcap">图 4-10　消费者下单与支付时序图（源文件 <code>04-10_seq_order.puml</code>）</p>
+
+<table>
+  <thead><tr><th style="width:20%">一致性要点</th><th>设计措施</th></tr></thead>
+  <tbody>
+  <tr><td>库存不超卖</td><td>锁定与扣减均在数据库事务内以行级锁完成，并在 SKU 维度增加版本号做乐观校验</td></tr>
+  <tr><td>支付幂等</td><td>以支付单号 + 渠道交易号建立唯一索引，重复回调直接返回成功而不重复变更状态</td></tr>
+  <tr><td>超时关单</td><td>定时任务扫描超时未支付订单，关闭订单并释放锁定的库存</td></tr>
+  <tr><td>履约解耦</td><td>支付成功后仅发布领域事件，履约与通知由独立消费者处理，失败可重试</td></tr>
+  </tbody>
+</table>
+
+<h2 id="6-4-智能客服咨询">6.4 智能客服咨询</h2>
+<p>智能客服时序图体现「意图分流」这一核心设计：知识咨询型意图走检索增强生成，业务工具型意图走受控工具调用，两类意图的结果统一交由大模型组织自然语言答复，最后经安全护栏过滤并以流式方式返回。</p>
+<img src="diagrams/04-11_seq_cs.svg" alt="图 4-11 智能客服咨询时序图" />
+<p class="figcap">图 4-11　智能客服咨询时序图（源文件 <code>04-11_seq_cs.puml</code>）</p>
+
+<table>
+  <thead><tr><th style="width:22%">设计要点</th><th>说明</th></tr></thead>
+  <tbody>
+  <tr><td>意图分流</td><td>业务事实类问题必须走工具调用获取真实数据，禁止由模型凭上下文推断金额与时效</td></tr>
+  <tr><td>检索增强</td><td>检索结果须经重排后再入提示词，控制上下文长度并提升相关性</td></tr>
+  <tr><td>流式返回</td><td>采用服务端推送，首字延迟优先于完整生成时延，改善体感</td></tr>
+  <tr><td>降级与转人工</td><td>置信度低于阈值或用户主动要求时转人工，并携带会话摘要降低重复沟通成本</td></tr>
+  </tbody>
+</table>
+
+<h2 id="6-5-智能选品推荐">6.5 智能选品推荐</h2>
+<p>智能选品时序图给出推荐链路的请求编排：画像装载、多路并行召回、精排打分、业务规则过滤与多样性重排，最后按结果条数决定正排输出或冷启动兜底。</p>
+<img src="diagrams/04-12_seq_selection.svg" alt="图 4-12 智能选品推荐时序图" />
+<p class="figcap">图 4-12　智能选品推荐时序图（源文件 <code>04-12_seq_selection.puml</code>）</p>
+
+<h2 id="6-6-智能组货搭配">6.6 智能组货搭配</h2>
+<p>智能组货时序图把「大模型生成」与「业务事实校验」明确分离：大模型只负责生成搭配理由与文案，而候选商品的可行性、价格与毛利全部由业务服务计算。这保证了组合方案的商业正确性。</p>
+<img src="diagrams/04-13_seq_grouping.svg" alt="图 4-13 智能组货搭配时序图" />
+<p class="figcap">图 4-13　智能组货搭配时序图（源文件 <code>04-13_seq_grouping.puml</code>）</p>
+
+<h1>7 数据设计</h1>
+
+<h2 id="7-1-核心数据模型">7.1 核心数据模型</h2>
+<p>核心数据模型图给出 18 张核心表及其主外键关联。设计上把「品类结构」与「商品属性」彻底分离：品类与属性表描述「这个品类允许有哪些特征」，商品的属性取值表记录「这个 SKU 的特征值是什么」，从而支持同一套表结构承载任意自定义品类。</p>
+<img src="diagrams/04-08_erd.svg" alt="图 4-8 核心数据模型图" />
+<p class="figcap">图 4-8　核心数据模型图（源文件 <code>04-08_erd.puml</code>）</p>
+
+<h2 id="7-2-核心表清单">7.2 核心表清单</h2>
+<table>
+  <thead><tr><th style="width:26%">表名</th><th style="width:20%">中文名称</th><th>关键设计说明</th></tr></thead>
+  <tbody>
+  <tr><td>t_category</td><td>品类表</td><td>以 <code>path</code> 冗余全路径便于子树查询；<code>version</code> 支持品类版本管理与回滚</td></tr>
+  <tr><td>t_category_attr</td><td>品类属性表</td><td>属性 Schema 的落库形态；<code>value_range</code> 以 JSON 存储枚举项或数值区间</td></tr>
+  <tr><td>t_index_mapping</td><td>索引映射表</td><td>记录品类到检索引擎字段映射的关系与同步状态，支持重建索引</td></tr>
+  <tr><td>t_product</td><td>商品表</td><td>SPU 主表，挂载品类与商家</td></tr>
+  <tr><td>t_sku</td><td>SKU 表</td><td>规格、售价与市场价；规格文本冗余便于检索展示</td></tr>
+  <tr><td>t_sku_attr_value</td><td>SKU 属性值表</td><td>以「SKU + 属性」为维度的稀疏表，承载任意自定义属性取值</td></tr>
+  <tr><td>t_inventory</td><td>库存表</td><td><code>version</code> 字段支持乐观锁；总库存与锁定量分离</td></tr>
+  <tr><td>t_user</td><td>用户表</td><td>手机号唯一索引；敏感字段加密存储</td></tr>
+  <tr><td>t_user_profile</td><td>用户画像表</td><td>偏好品类以 JSON 存储，便于画像迭代不锁表结构</td></tr>
+  <tr><td>t_user_behavior</td><td>用户行为表</td><td>按时间分区；承载推荐系统的样本回流</td></tr>
+  <tr><td>t_order / t_order_item</td><td>订单表 / 订单明细表</td><td>订单号全局唯一；明细保留 <code>source</code> 字段用于识别组货来源</td></tr>
+  <tr><td>t_payment</td><td>支付单表</td><td>渠道交易号唯一索引，保证回调幂等</td></tr>
+  <tr><td>t_conversation / t_message</td><td>会话表 / 消息表</td><td>支持多轮上下文回放；保留置信度用于质量分析</td></tr>
+  <tr><td>t_knowledge_chunk</td><td>知识片段表</td><td>记录切片内容与向量标识，支撑检索增强</td></tr>
+  <tr><td>t_bundle / t_bundle_item</td><td>组货方案表 / 组货明细表</td><td>记录场景标签、组合价、毛利率与策略标识，用于效果归因</td></tr>
+  <tr><td>t_recommend_log</td><td>推荐日志表</td><td>记录场景、策略与结果快照，支持离线回放与实验分析</td></tr>
+  </tbody>
+</table>
+
+<h2 id="7-3-索引与容量设计">7.3 索引与容量设计</h2>
+<table>
+  <thead><tr><th style="width:22%">对象</th><th>设计策略</th></tr></thead>
+  <tbody>
+  <tr><td>品类子树查询</td><td>在 <code>t_category.path</code> 上建立前缀索引，子树查询以 <code>LIKE 'path%'</code> 实现，避免递归查询</td></tr>
+  <tr><td>商品检索</td><td>由 Elasticsearch 承载；索引字段随品类 Schema 动态生成，字段类型由 <code>dataType</code> 映射</td></tr>
+  <tr><td>向量检索</td><td>知识片段与商品描述向量分别建集合；采用近似最近邻索引以控制检索延迟</td></tr>
+  <tr><td>行为数据</td><td><code>t_user_behavior</code> 与 <code>t_recommend_log</code> 按月分区，历史分区归档至对象存储</td></tr>
+  <tr><td>缓存策略</td><td>品类树与属性 Schema 长驻缓存并在导入成功后主动失效；推荐结果按用户与场景短时缓存</td></tr>
+  <tr><td>分库分表</td><td>订单与行为类大表按用户标识分片；品类与商品表数据量可控，暂不拆分</td></tr>
+  </tbody>
+</table>
+
+<h1>8 接口设计</h1>
+
+<h2 id="8-1-接口风格与统一约定">8.1 接口风格与统一约定</h2>
+<ul>
+  <li>对外接口采用 RESTful 风格，路径以 <code>/api/v1</code> 为前缀；AI 流式接口采用服务端推送。</li>
+  <li>统一响应体：<code>{ code, message, data, traceId }</code>；<code>code</code> 为 0 表示成功。</li>
+  <li>统一鉴权：请求头携带访问令牌；网关完成令牌校验与用户上下文注入。</li>
+  <li>统一幂等：写接口支持幂等键请求头，相同幂等键在有效期内只生效一次。</li>
+  <li>统一追踪：全链路透传 <code>traceId</code>，AI 调用额外透传 <code>aiTraceId</code> 以便关联模型调用日志。</li>
+</ul>
+
+<h2 id="8-2-关键接口清单">8.2 关键接口清单</h2>
+<table>
+  <thead><tr><th style="width:8%">方法</th><th style="width:32%">路径</th><th style="width:26%">说明</th><th>对应需求</th></tr></thead>
+  <tbody>
+  <tr><td>POST</td><td>/api/v1/merchant/categories/validate</td><td>品类 JSON 校验（dry-run，无副作用）</td><td>FR-07、FR-08</td></tr>
+  <tr><td>POST</td><td>/api/v1/merchant/categories/import</td><td>品类 JSON 正式导入</td><td>FR-07、FR-08</td></tr>
+  <tr><td>GET</td><td>/api/v1/merchant/categories/{id}/form-schema</td><td>获取动态商品发布表单描述</td><td>FR-09</td></tr>
+  <tr><td>GET</td><td>/api/v1/mall/categories/tree</td><td>获取品类树（消费者端）</td><td>FR-01</td></tr>
+  <tr><td>GET</td><td>/api/v1/mall/products</td><td>商品检索与筛选</td><td>FR-01</td></tr>
+  <tr><td>GET</td><td>/api/v1/mall/products/{id}</td><td>商品详情与 SKU 列表</td><td>FR-02</td></tr>
+  <tr><td>POST</td><td>/api/v1/mall/cart/items</td><td>加入购物车（支持单品与组合）</td><td>FR-03、FR-23</td></tr>
+  <tr><td>POST</td><td>/api/v1/mall/orders</td><td>创建订单</td><td>FR-04</td></tr>
+  <tr><td>POST</td><td>/api/v1/mall/payments/{orderId}/pay</td><td>发起支付</td><td>FR-04</td></tr>
+  <tr><td>POST</td><td>/api/v1/callback/payment/{channel}</td><td>支付结果回调（验签 + 幂等）</td><td>FR-04</td></tr>
+  <tr><td>GET</td><td>/api/v1/mall/orders/{id}/logistics</td><td>物流轨迹查询</td><td>FR-05</td></tr>
+  <tr><td>POST</td><td>/api/v1/ai/customer-service/chat</td><td>智能客服对话（流式）</td><td>FR-13 ~ FR-16</td></tr>
+  <tr><td>POST</td><td>/api/v1/ai/recommend/selection</td><td>智能选品推荐</td><td>FR-17 ~ FR-20</td></tr>
+  <tr><td>POST</td><td>/api/v1/ai/bundle/compose</td><td>智能组货方案生成</td><td>FR-21 ~ FR-23</td></tr>
+  <tr><td>POST</td><td>/api/v1/console/ai/prompts</td><td>提示词模板发布</td><td>FR-27</td></tr>
+  <tr><td>POST</td><td>/api/v1/console/knowledge/documents</td><td>知识库文档导入与切片</td><td>FR-27</td></tr>
+  </tbody>
+</table>
+
+<h2 id="8-3-品类导入接口详细设计">8.3 品类导入接口详细设计</h2>
+<p><strong>接口：</strong><code>POST /api/v1/merchant/categories/import</code></p>
+<table>
+  <thead><tr><th style="width:18%">项目</th><th>说明</th></tr></thead>
+  <tbody>
+  <tr><td>请求体</td><td><code>{ "mode": "dryRun | commit", "jsonText": "&lt;品类定义 JSON 字符串&gt;", "overwrite": false }</code></td></tr>
+  <tr><td>成功响应</td><td><code>{ "code":0, "data": { "categoryId":"...", "version":3, "generated": { "attrCount":12, "indexFields":7, "formSchemaId":"..." } } }</code></td></tr>
+  <tr><td>语法错误响应</td><td><code>{ "code":40001, "message":"JSON 语法错误", "data": { "line":37, "column":12, "path":"category.children[1]", "detail":"Expected ',' or '}'" } }</code></td></tr>
+  <tr><td>校验错误响应</td><td><code>{ "code":42201, "message":"品类结构校验未通过", "data": { "errors":[ {"rule":"V-03","path":"category.children[0].code","detail":"品类编码重复"} ] } }</code></td></tr>
+  <tr><td>幂等要求</td><td>相同幂等键的重复提交返回首次结果，不重复创建品类版本</td></tr>
+  <tr><td>事务边界</td><td>仅落库阶段处于事务内；解析、校验与索引映射生成均在事务外完成</td></tr>
+  </tbody>
+</table>
+
+<h2 id="8-4-AI-能力接口详细设计">8.4 AI 能力接口详细设计</h2>
+<table>
+  <thead><tr><th style="width:22%">接口</th><th style="width:30%">关键请求字段</th><th>关键响应字段与降级语义</th></tr></thead>
+  <tbody>
+  <tr><td>智能客服对话</td><td><code>sessionId</code>、<code>question</code>、<code>pageContext</code>、<code>stream</code></td><td>流式返回增量文本；结束帧携带 <code>intent</code>、<code>confidence</code>、<code>citations</code>、<code>relatedOrder</code>；置信度不足时携带 <code>transferToAgent</code> 建议</td></tr>
+  <tr><td>智能选品推荐</td><td><code>scene</code>、<code>pageContext</code>、<code>limit</code>、<code>experimentTag</code></td><td>返回 <code>items[]</code>（含商品标识、排序分、推荐理由、召回来源）；冷启动时返回 <code>fallback=true</code> 与热门列表</td></tr>
+  <tr><td>智能组货生成</td><td><code>mainSkuId</code>、<code>sceneTag</code>、<code>budgetRange</code>、<code>limit</code></td><td>返回 <code>bundles[]</code>（含主推标识、组合价、优惠明细、毛利等级、搭配理由）；无可行组合时返回 <code>degraded=true</code> 与同类单品列表</td></tr>
+  </tbody>
+</table>
+
+<div data-component="callout">
+<strong>降级契约：</strong>所有 AI 接口在响应体中必须携带 <code>degraded</code> 与 <code>degradeReason</code> 字段。调用方据此决定前端提示文案，禁止把降级结果当作正常结果呈现给用户。
+</div>
+
+<h1>9 非功能性设计</h1>
+<table>
+  <thead><tr><th style="width:14%">维度</th><th>设计措施</th></tr></thead>
+  <tbody>
+  <tr><td>性能</td><td>热点数据多级缓存（本地缓存 + 分布式缓存）；商品检索下沉至检索引擎；推荐结果短时缓存；品类 Schema 长驻内存；AI 推理侧支持结果流式返回与批量向量化</td></tr>
+  <tr><td>可用性</td><td>网关与应用服务多副本；AI 能力具备模型级故障转移与规则级降级；关键依赖配置熔断与限流阈值；数据存储主从与定期备份</td></tr>
+  <tr><td>安全</td><td>统一鉴权与细粒度授权；传输加密；敏感字段加密存储与日志脱敏；支付回调验签与防重放；AI 侧实施输入输出双向护栏、工具白名单与参数白名单</td></tr>
+  <tr><td>可扩展</td><td>品类结构、提示词、模型路由、召回路数与排序权重全部配置化；组件间以接口契约协作；新增 AI 能力只需实现策略并注册</td></tr>
+  <tr><td>可观测</td><td>全链路追踪贯通业务与 AI 调用；AI 调用记录 token 消耗、首字时延、总时延、护栏命中与工具调用明细；按业务指标与资源指标分级告警</td></tr>
+  <tr><td>可维护</td><td>严格分层与依赖倒置；领域层无框架依赖；核心领域服务可脱离容器独立单测；品类解析与校验具备完整用例集</td></tr>
+  </tbody>
+</table>
+
+<h1>10 实施与交付</h1>
+
+<h2 id="10-1-代码结构约定">10.1 代码结构约定</h2>
+<p>后端采用多模块工程：<code>aiecp-common</code>、<code>aiecp-domain</code>、<code>aiecp-ai</code>、<code>aiecp-application</code>、<code>aiecp-infrastructure</code>、<code>aiecp-bootstrap</code>。前端分为消费者端、商家端与运营端三个独立工程，共用组件库与接口 SDK。</p>
+
+<h2 id="10-2-技术选型建议">10.2 技术选型建议</h2>
+<table>
+  <thead><tr><th style="width:20%">层次</th><th style="width:34%">选型建议</th><th>说明</th></tr></thead>
+  <tbody>
+  <tr><td>后端框架</td><td>Java 17 + Spring Boot 3.x</td><td>生态成熟，与容器化部署、可观测组件衔接顺畅</td></tr>
+  <tr><td>关系数据库</td><td>MySQL 8.x</td><td>支持 JSON 字段，便于承载画像与索引映射等半结构化数据</td></tr>
+  <tr><td>缓存</td><td>Redis 7.x</td><td>承担会话记忆、热点数据与计数器</td></tr>
+  <tr><td>检索</td><td>Elasticsearch 8.x</td><td>支持动态字段映射，契合品类 Schema 动态生成索引的需求</td></tr>
+  <tr><td>向量检索</td><td>向量数据库（支持近似最近邻索引）</td><td>承载知识片段与商品语义向量</td></tr>
+  <tr><td>消息</td><td>Kafka</td><td>承载订单事件、行为埋点与索引同步</td></tr>
+  <tr><td>容器编排</td><td>Kubernetes</td><td>业务与 AI 服务独立扩缩容</td></tr>
+  <tr><td>大模型</td><td>统一接入网关，支持私有化与云端双通道</td><td>通过配置路由，避免业务代码绑定具体模型</td></tr>
+  </tbody>
+</table>
+
+<h2 id="10-3-交付物清单">10.3 交付物清单</h2>
+<table>
+  <thead><tr><th style="width:24%">交付物</th><th>内容</th></tr></thead>
+  <tbody>
+  <tr><td>需求分析报告</td><td>AIECP-SRS-001（Word 文档 + 静态网页版）</td></tr>
+  <tr><td>系统设计报告</td><td>AIECP-SDD-001（Word 文档 + 静态网页版）</td></tr>
+  <tr><td>UML 模型源文件</td><td>22 个 PlantUML 源文件，覆盖用例图、活动图、类图、包图、组件图、部署图、状态图、时序图</td></tr>
+  <tr><td>UML 渲染图集</td><td>22 幅矢量图（SVG）与高分辨率位图（PNG，200 DPI）</td></tr>
+  <tr><td>整合静态站点</td><td>含渲染脚本、站点构建脚本与可离线浏览的完整站点</td></tr>
+  <tr><td>需求追踪矩阵</td><td>需求—用例—UML 图—设计章节的双向追溯关系</td></tr>
+  </tbody>
+</table>
+
+<h2 id="10-4-后续演进建议">10.4 后续演进建议</h2>
+<ol>
+  <li><strong>品类规范演进</strong>：为品类 JSON 引入 <code>extensions</code> 保留字段，允许在不破坏兼容性的前提下扩展自定义语义。</li>
+  <li><strong>AI 能力增强</strong>：在智能客服引入多模态输入（图片识别商品），在智能组货引入季节与地域约束。</li>
+  <li><strong>推荐体系深化</strong>：建设统一的特征平台与在线学习链路，缩短模型迭代周期。</li>
+  <li><strong>成本治理</strong>：建立按业务场景的 token 预算与配额机制，避免 AI 成本失控。</li>
+</ol>
+
+</section>
+
+  </article>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-text">
+      <p><strong>智选云 AI 电商在线售货系统</strong>（AI-ECP · AI E-Commerce Platform） · 需求分析报告 AIECP-SRS-001 · 系统设计报告 AIECP-SDD-001</p>
+      <p class="muted">本文档集由 UML 2.5 建模生成，图源为 PlantUML，可离线浏览。图集共 22 幅，覆盖用例图、活动图、类图、包图、组件图、部署图、状态图与时序图。</p>
+      <p class="muted">线上地址：<a href="https://ai-ecp-uml-design.app.workbuddy.host/">https://ai-ecp-uml-design.app.workbuddy.host/</a></p>
+    </div>
+    <div class="qr-mini">
+      <img src="assets/qrcode.svg" alt="站点访问二维码" width="104" height="104" />
+      <span>手机扫码访问</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+
+</body>
+</html>

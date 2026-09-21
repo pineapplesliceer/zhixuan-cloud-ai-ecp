@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1F4E79" />
+  <meta name="description" content="智选云 AI 电商在线售货系统 —— 需求分析与系统设计成果站点，含 22 幅 UML 图与两份正式报告。" />
+  <title>UML 图集 · 智选云 AI 电商在线售货系统</title>
+  <link rel="stylesheet" href="assets/style.css" />
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AI</span>
+      <span class="brand-text">
+        <strong>智选云 AI 电商在线售货系统</strong>
+        <em>AI-ECP · AI E-Commerce Platform</em>
+      </span>
+    </a>
+    <input type="checkbox" id="navToggle" class="nav-toggle" hidden />
+    <label for="navToggle" class="nav-btn" aria-label="展开导航"><span></span><span></span><span></span></label>
+    <nav class="mainnav">
+        <a href="index.html">首页</a>
+        <a href="requirements.html">需求分析报告</a>
+        <a href="design.html">系统设计报告</a>
+        <a href="diagrams.html" class="active">UML 图集</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <section class="page-head">
+    <h1>UML 图集</h1>
+    <p class="lede">共 <strong>22</strong> 幅图，采用严格 UML 2.5 语义与黑白参考风格绘制。点击任意图可进入查看器，支持缩放、拖动与下载。</p>
+    <div class="chips"><button class="chip active" data-filter="all">全部（22）</button>
+    <button class="chip" data-filter="需求分析">需求分析（9）</button>
+    <button class="chip" data-filter="系统设计">系统设计（13）</button></div>
+  </section>
+
+  <div class="dgrid" id="dgrid">
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-01_uc_overall.svg" data-title="图 3-1 系统总体用例图">
+      <div class="dcard-thumb"><img src="diagrams/03-01_uc_overall.svg" alt="图 3-1 系统总体用例图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-1</span>
+        <h3>系统总体用例图</h3>
+        <p>以模块级粒度刻画系统边界、参与者与六大服务之间的关系，形成系统功能全景。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-01_uc_overall.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-02_uc_consumer.svg" data-title="图 3-2 消费者用例图">
+      <div class="dcard-thumb"><img src="diagrams/03-02_uc_consumer.svg" alt="图 3-2 消费者用例图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-2</span>
+        <h3>消费者用例图</h3>
+        <p>细化消费者（买家）视角的用例，覆盖交易主线与三项 AI 能力的触达点。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-02_uc_consumer.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-03_uc_merchant.svg" data-title="图 3-3 商家与平台管理员用例图">
+      <div class="dcard-thumb"><img src="diagrams/03-03_uc_merchant.svg" alt="图 3-3 商家与平台管理员用例图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-3</span>
+        <h3>商家与平台管理员用例图</h3>
+        <p>细化供给侧与治理侧的用例，突出「JSON 自定义品类」这一系统特色能力。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-03_uc_merchant.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-04_uc_ai.svg" data-title="图 3-4 AI 能力域用例细化图">
+      <div class="dcard-thumb"><img src="diagrams/03-04_uc_ai.svg" alt="图 3-4 AI 能力域用例细化图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-4</span>
+        <h3>AI 能力域用例细化图</h3>
+        <p>细化智能客服、智能选品、智能组货三项 AI 核心能力的用例构成及 include / extend 关系。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-04_uc_ai.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-05_func_tree.svg" data-title="图 3-5 系统功能结构图">
+      <div class="dcard-thumb"><img src="diagrams/03-05_func_tree.svg" alt="图 3-5 系统功能结构图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-5</span>
+        <h3>系统功能结构图</h3>
+        <p>以工作分解结构形式给出系统的完整功能树，作为功能需求清单的索引。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-05_func_tree.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-06_activity_json_import.svg" data-title="图 3-6 JSON 品类定义导入与解析活动图">
+      <div class="dcard-thumb"><img src="diagrams/03-06_activity_json_import.svg" alt="图 3-6 JSON 品类定义导入与解析活动图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-6</span>
+        <h3>JSON 品类定义导入与解析活动图</h3>
+        <p>描述商家自定义品类 JSON 从提交到落地为可运营品类结构、动态表单与索引映射的完整处理流程。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-06_activity_json_import.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-07_activity_selection.svg" data-title="图 3-7 智能选品推荐活动图">
+      <div class="dcard-thumb"><img src="diagrams/03-07_activity_selection.svg" alt="图 3-7 智能选品推荐活动图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-7</span>
+        <h3>智能选品推荐活动图</h3>
+        <p>描述「画像 → 召回 → 排序 → 规则过滤 → 重排 → 兜底」的智能选品推荐决策链路。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-07_activity_selection.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-08_activity_grouping.svg" data-title="图 3-8 智能组货搭配活动图">
+      <div class="dcard-thumb"><img src="diagrams/03-08_activity_grouping.svg" alt="图 3-8 智能组货搭配活动图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-8</span>
+        <h3>智能组货搭配活动图</h3>
+        <p>描述「场景识别 → 配套召回 → 可行性校验 → 组合定价 → 方案生成」的智能组货流程。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-08_activity_grouping.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="需求分析" data-src="diagrams/03-09_class_domain.svg" data-title="图 3-9 领域概念类图">
+      <div class="dcard-thumb"><img src="diagrams/03-09_class_domain.svg" alt="图 3-9 领域概念类图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 3-9</span>
+        <h3>领域概念类图</h3>
+        <p>从业务视角抽象系统核心领域概念及其静态关系，为后续详细设计提供依据。</p>
+        <span class="tag">需求分析</span>
+        <span class="tag tag-src">03-09_class_domain.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-01_pkg_layered.svg" data-title="图 4-1 系统分层包图">
+      <div class="dcard-thumb"><img src="diagrams/04-01_pkg_layered.svg" alt="图 4-1 系统分层包图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-1</span>
+        <h3>系统分层包图</h3>
+        <p>给出后端代码的分层包结构及各层之间的依赖方向，体现依赖倒置原则。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-01_pkg_layered.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-02_class_service.svg" data-title="图 4-2 核心服务设计类图">
+      <div class="dcard-thumb"><img src="diagrams/04-02_class_service.svg" alt="图 4-2 核心服务设计类图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-2</span>
+        <h3>核心服务设计类图</h3>
+        <p>给出分层架构下核心类、接口及其依赖关系，并说明所采用的设计模式。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-02_class_service.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-03_class_ai.svg" data-title="图 4-3 AI 能力引擎类图">
+      <div class="dcard-thumb"><img src="diagrams/04-03_class_ai.svg" alt="图 4-3 AI 能力引擎类图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-3</span>
+        <h3>AI 能力引擎类图</h3>
+        <p>细化 AI 能力中台的类结构：能力抽象、策略实现、模型适配、检索增强、工具调用与安全护栏。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-03_class_ai.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-04_comp_overall.svg" data-title="图 4-4 系统组件图">
+      <div class="dcard-thumb"><img src="diagrams/04-04_comp_overall.svg" alt="图 4-4 系统组件图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-4</span>
+        <h3>系统组件图</h3>
+        <p>给出系统在物理实现视角下的组件划分与依赖关系。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-04_comp_overall.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-05_comp_ai.svg" data-title="图 4-5 AI 能力中台组件与接口图">
+      <div class="dcard-thumb"><img src="diagrams/04-05_comp_ai.svg" alt="图 4-5 AI 能力中台组件与接口图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-5</span>
+        <h3>AI 能力中台组件与接口图</h3>
+        <p>以「供给接口 / 需求接口」方式刻画 AI 能力中台内部组件契约，体现低耦合、可替换的设计目标。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-05_comp_ai.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-06_deploy.svg" data-title="图 4-6 系统部署图">
+      <div class="dcard-thumb"><img src="diagrams/04-06_deploy.svg" alt="图 4-6 系统部署图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-6</span>
+        <h3>系统部署图</h3>
+        <p>给出生产环境的物理节点拓扑、网络分区与部署关系。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-06_deploy.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-07_state_order.svg" data-title="图 4-7 订单状态图">
+      <div class="dcard-thumb"><img src="diagrams/04-07_state_order.svg" alt="图 4-7 订单状态图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-7</span>
+        <h3>订单状态图</h3>
+        <p>描述订单对象从创建到终态的完整生命周期，明确状态迁移事件与守卫条件。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-07_state_order.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-08_erd.svg" data-title="图 4-8 核心数据模型图">
+      <div class="dcard-thumb"><img src="diagrams/04-08_erd.svg" alt="图 4-8 核心数据模型图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-8</span>
+        <h3>核心数据模型图</h3>
+        <p>给出核心数据库表结构及主外键关联，支撑品类自定义与 AI 能力的数据落地。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-08_erd.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-09_seq_json_import.svg" data-title="图 4-9 自定义品类 JSON 解析与入库时序图">
+      <div class="dcard-thumb"><img src="diagrams/04-09_seq_json_import.svg" alt="图 4-9 自定义品类 JSON 解析与入库时序图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-9</span>
+        <h3>自定义品类 JSON 解析与入库时序图</h3>
+        <p>细化商家自定义品类 JSON 的解析、校验、树构建、索引映射生成与落库交互过程。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-09_seq_json_import.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-10_seq_order.svg" data-title="图 4-10 消费者下单与支付时序图">
+      <div class="dcard-thumb"><img src="diagrams/04-10_seq_order.svg" alt="图 4-10 消费者下单与支付时序图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-10</span>
+        <h3>消费者下单与支付时序图</h3>
+        <p>描述从提交订单、锁定库存、发起支付到支付回调与履约触发的完整链路。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-10_seq_order.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-11_seq_cs.svg" data-title="图 4-11 智能客服咨询时序图">
+      <div class="dcard-thumb"><img src="diagrams/04-11_seq_cs.svg" alt="图 4-11 智能客服咨询时序图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-11</span>
+        <h3>智能客服咨询时序图</h3>
+        <p>描述智能客服「意图识别 → 知识检索增强 / 业务工具调用 → 大模型生成 → 安全过滤 → 流式返回」的完整链路。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-11_seq_cs.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-12_seq_selection.svg" data-title="图 4-12 智能选品推荐时序图">
+      <div class="dcard-thumb"><img src="diagrams/04-12_seq_selection.svg" alt="图 4-12 智能选品推荐时序图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-12</span>
+        <h3>智能选品推荐时序图</h3>
+        <p>描述个性化选品从画像装载、多路召回、精排打分、业务规则过滤到结果返回与埋点回流的过程。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-12_seq_selection.puml</span>
+      </figcaption>
+    </figure>
+    <figure class="dcard" data-group="系统设计" data-src="diagrams/04-13_seq_grouping.svg" data-title="图 4-13 智能组货搭配时序图">
+      <div class="dcard-thumb"><img src="diagrams/04-13_seq_grouping.svg" alt="图 4-13 智能组货搭配时序图" loading="lazy" /></div>
+      <figcaption>
+        <span class="fig">图 4-13</span>
+        <h3>智能组货搭配时序图</h3>
+        <p>描述以主商品为中心的智能组货：场景识别、配套召回、可行性校验、组合定价与一键加购。</p>
+        <span class="tag">系统设计</span>
+        <span class="tag tag-src">04-13_seq_grouping.puml</span>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-text">
+      <p><strong>智选云 AI 电商在线售货系统</strong>（AI-ECP · AI E-Commerce Platform） · 需求分析报告 AIECP-SRS-001 · 系统设计报告 AIECP-SDD-001</p>
+      <p class="muted">本文档集由 UML 2.5 建模生成，图源为 PlantUML，可离线浏览。图集共 22 幅，覆盖用例图、活动图、类图、包图、组件图、部署图、状态图与时序图。</p>
+      <p class="muted">线上地址：<a href="https://ai-ecp-uml-design.app.workbuddy.host/">https://ai-ecp-uml-design.app.workbuddy.host/</a></p>
+    </div>
+    <div class="qr-mini">
+      <img src="assets/qrcode.svg" alt="站点访问二维码" width="104" height="104" />
+      <span>手机扫码访问</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+
+<div class="viewer" id="viewer" hidden>
+  <div class="viewer-bar">
+    <span class="viewer-title" id="viewerTitle"></span>
+    <div class="viewer-actions">
+      <button data-act="zoomout" title="缩小">−</button>
+      <button data-act="zoomin" title="放大">＋</button>
+      <button data-act="fit" title="适应屏幕">适应</button>
+      <button data-act="one" title="原始尺寸">1:1</button>
+      <a id="viewerDownload" href="#" download title="下载矢量图">下载</a>
+      <button data-act="close" class="close" title="关闭">×</button>
+    </div>
+  </div>
+  <div class="viewer-stage" id="viewerStage">
+    <img id="viewerImg" alt="" />
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1F4E79" />
+  <meta name="description" content="智选云 AI 电商在线售货系统 —— 需求分析与系统设计成果站点，含 22 幅 UML 图与两份正式报告。" />
+  <title>需求分析报告（在线版） · 智选云 AI 电商在线售货系统</title>
+  <link rel="stylesheet" href="assets/style.css" />
+
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AI</span>
+      <span class="brand-text">
+        <strong>智选云 AI 电商在线售货系统</strong>
+        <em>AI-ECP · AI E-Commerce Platform</em>
+      </span>
+    </a>
+    <input type="checkbox" id="navToggle" class="nav-toggle" hidden />
+    <label for="navToggle" class="nav-btn" aria-label="展开导航"><span></span><span></span><span></span></label>
+    <nav class="mainnav">
+        <a href="index.html">首页</a>
+        <a href="requirements.html" class="active">需求分析报告</a>
+        <a href="design.html">系统设计报告</a>
+        <a href="diagrams.html">UML 图集</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap report-layout">
+  <aside class="toc" id="toc">
+    <p class="toc-title">本册目录</p>
+    <ul class="toc-list">
+      <li class="lvl2"><a href="#需求分析报告">需求分析报告</a></li>
+      <li class="lvl2"><a href="#1-1-编写目的">1.1 编写目的</a></li>
+      <li class="lvl2"><a href="#1-2-项目背景">1.2 项目背景</a></li>
+      <li class="lvl2"><a href="#1-3-术语与缩略语">1.3 术语与缩略语</a></li>
+      <li class="lvl2"><a href="#1-4-参考资料">1.4 参考资料</a></li>
+      <li class="lvl2"><a href="#2-1-系统定位">2.1 系统定位</a></li>
+      <li class="lvl2"><a href="#2-2-建设目标">2.2 建设目标</a></li>
+      <li class="lvl2"><a href="#2-3-用户角色与特征">2.3 用户角色与特征</a></li>
+      <li class="lvl2"><a href="#2-4-运行环境与约束">2.4 运行环境与约束</a></li>
+      <li class="lvl2"><a href="#2-5-设计假设与依赖">2.5 设计假设与依赖</a></li>
+      <li class="lvl2"><a href="#3-1-需求获取与分析方法">3.1 需求获取与分析方法</a></li>
+      <li class="lvl2"><a href="#3-2-系统用例分析">3.2 系统用例分析</a></li>
+      <li class="lvl3"><a href="#3-2-1-系统总体用例">3.2.1 系统总体用例</a></li>
+      <li class="lvl3"><a href="#3-2-2-消费者用例">3.2.2 消费者用例</a></li>
+      <li class="lvl3"><a href="#3-2-3-商家与平台管理员用例">3.2.3 商家与平台管理员用例</a></li>
+      <li class="lvl3"><a href="#3-2-4-AI-能力域用例细化">3.2.4 AI 能力域用例细化</a></li>
+      <li class="lvl2"><a href="#3-3-功能需求">3.3 功能需求</a></li>
+      <li class="lvl3"><a href="#3-3-1-功能结构">3.3.1 功能结构</a></li>
+      <li class="lvl3"><a href="#3-3-2-功能需求清单">3.3.2 功能需求清单</a></li>
+      <li class="lvl2"><a href="#3-4-关键业务流程分析">3.4 关键业务流程分析</a></li>
+      <li class="lvl3"><a href="#3-4-1-自定义商品品类-JSON-的导入与解析">3.4.1 自定义商品品类 JSON 的导入与解析</a></li>
+      <li class="lvl3"><a href="#3-4-2-智能选品推荐">3.4.2 智能选品推荐</a></li>
+      <li class="lvl3"><a href="#3-4-3-智能组货搭配">3.4.3 智能组货搭配</a></li>
+      <li class="lvl2"><a href="#3-5-领域模型分析">3.5 领域模型分析</a></li>
+      <li class="lvl3"><a href="#3-5-1-核心业务规则">3.5.1 核心业务规则</a></li>
+      <li class="lvl2"><a href="#3-6-自定义商品品类-JSON-规范">3.6 自定义商品品类 JSON 规范</a></li>
+      <li class="lvl3"><a href="#3-6-1-结构说明">3.6.1 结构说明</a></li>
+      <li class="lvl3"><a href="#3-6-2-完整示例">3.6.2 完整示例</a></li>
+      <li class="lvl3"><a href="#3-6-3-字段说明">3.6.3 字段说明</a></li>
+      <li class="lvl3"><a href="#3-6-4-校验规则">3.6.4 校验规则</a></li>
+      <li class="lvl2"><a href="#3-7-非功能需求">3.7 非功能需求</a></li>
+      <li class="lvl2"><a href="#3-8-需求优先级与验收标准">3.8 需求优先级与验收标准</a></li>
+    </ul>
+  </aside>
+  <article class="doc" id="doc">
+<section role="cover">
+  <p class="cover-kicker">系统需求分析与设计文档 · 第 1 册</p>
+  <h1 class="cover-title">智选云 AI 电商在线售货系统</h1>
+  <h2 id="需求分析报告" class="cover-sub">需求分析报告</h2>
+  <p class="cover-en">AI-ECP (AI E-Commerce Platform) — Software Requirements Specification</p>
+  <table class="cover-meta">
+    <tr><td>文档编号</td><td>AIECP-SRS-001</td></tr>
+    <tr><td>文档版本</td><td>V1.0</td></tr>
+    <tr><td>系统代号</td><td>AI-ECP</td></tr>
+    <tr><td>建模语言</td><td>UML 2.5（用例图、活动图、类图）</td></tr>
+    <tr><td>配套文档</td><td>《智选云 AI 电商在线售货系统 系统设计报告》AIECP-SDD-001</td></tr>
+    <tr><td>编制日期</td><td>2026 年 9 月</td></tr>
+  </table>
+</section>
+
+<section role="body" data-page-restart="1">
+
+<h1>1 引言</h1>
+
+<h2 id="1-1-编写目的">1.1 编写目的</h2>
+<p>本文档面向「智选云 AI 电商在线售货系统」（以下简称本系统）的立项评审、开发实现与验收测试，用于完整、无歧义地描述系统的业务目标、用户角色、功能需求、非功能需求与约束条件。文档以 UML 2.5 作为统一的需求分析建模语言，通过用例图界定系统边界与参与者，通过活动图刻画关键业务流程，通过领域概念类图沉淀业务概念与业务规则，从而为系统设计、编码、测试与交付提供可追溯的基线。</p>
+<p>本文档的预期读者包括：项目发起人与评审专家、产品与业务人员、系统架构师与开发工程师、测试工程师、运维与运营人员。</p>
+
+<h2 id="1-2-项目背景">1.2 项目背景</h2>
+<p>传统电商系统在商品数据建模上普遍采用「固定类目 + 硬编码属性」的方案：类目树与属性集在编码阶段即被固化，一旦商家希望新增一个经营品类，就需要发版、改库、改表单、改检索映射，交付周期以周计。对于经营品类快速更迭的商家（如季节品、潮流品类、垂直专业品类），这种刚性结构成为业务扩张的直接瓶颈。</p>
+<p>与此同时，电商流量成本持续攀升，单纯依靠「人找货」的搜索模式难以提升转化与客单价。行业实践表明，在商品详情页与购物车环节嵌入<strong>智能组货（组合搭配推荐）</strong>、在首页与列表页嵌入<strong>智能选品（个性化推荐）</strong>、在全链路嵌入<strong>智能客服（知识问答与业务办理）</strong>，能够显著改善转化率与用户满意度。</p>
+<p>本系统正是针对上述两个痛点立项：一方面以 <strong>JSON 驱动的动态品类建模</strong>解决品类结构「由用户自定义、无需发版即可生效」的问题；另一方面以 <strong>AI 能力中台</strong>的形式统一沉淀智能客服、智能选品、智能组货三项能力，做到能力可复用、模型可替换、策略可配置。</p>
+
+<h2 id="1-3-术语与缩略语">1.3 术语与缩略语</h2>
+<table>
+  <thead><tr><th style="width:22%">术语 / 缩略语</th><th>说明</th></tr></thead>
+  <tbody>
+  <tr><td>AI-ECP</td><td>AI E-Commerce Platform，本系统的英文代号</td></tr>
+  <tr><td>品类（Category）</td><td>商品的分类节点，构成本系统的品类树；由商家通过 JSON 自定义</td></tr>
+  <tr><td>品类属性（Category Attribute）</td><td>挂在品类上的字段定义，用于描述该品类下商品的可描述特征；是动态表单与筛选条件的来源</td></tr>
+  <tr><td>SPU / SKU</td><td>Standard Product Unit（标准商品单元）／Stock Keeping Unit（库存量单位）。SPU 描述「是什么商品」，SKU 描述「什么规格、多少钱、有多少库存」</td></tr>
+  <tr><td>JSON 品类定义</td><td>商家提交的、用于声明品类树与属性 Schema 的 JSON 文本，是本系统品类结构的唯一事实来源</td></tr>
+  <tr><td>属性 Schema</td><td>由品类属性集合推导出的结构化描述，用于生成动态表单、检索索引与 AI 提示词上下文</td></tr>
+  <tr><td>RAG</td><td>Retrieval-Augmented Generation，检索增强生成。先检索知识片段，再交由大模型生成答复</td></tr>
+  <tr><td>召回 / 排序 / 重排</td><td>推荐链路的三个阶段：召回从全量商品中筛选候选集，排序对候选集精算打分，重排按业务规则与多样性调整顺序</td></tr>
+  <tr><td>组货（Bundle）</td><td>以主商品为中心，组合若干配套 SKU 形成的搭配方案，对应「一键搭购」业务</td></tr>
+  <tr><td>冷启动</td><td>新用户或新商品缺乏行为数据的状态，此时推荐链路降级为热门或新品兜底策略</td></tr>
+  <tr><td>DMZ</td><td>Demilitarized Zone，隔离区。用于部署对公网暴露的接入组件</td></tr>
+  </tbody>
+</table>
+
+<h2 id="1-4-参考资料">1.4 参考资料</h2>
+<ul>
+  <li>OMG，《Unified Modeling Language (UML) Specification, Version 2.5.1》，2017</li>
+  <li>ISO/IEC/IEEE 29148:2018，《Systems and software engineering — Life cycle processes — Requirements engineering》</li>
+  <li>《智选云 AI 电商在线售货系统 系统设计报告》（AIECP-SDD-001）</li>
+  <li>本系统 UML 图源文件集（<code>uml/src/*.puml</code>）与渲染图集（<code>uml/dist/*.svg|png</code>）</li>
+</ul>
+
+<h1>2 系统概述</h1>
+
+<h2 id="2-1-系统定位">2.1 系统定位</h2>
+<p>本系统是一个面向中小型品牌商与垂直品类商家的<strong>在线售货平台</strong>，同时具备两个区别于通用电商系统的核心特征：</p>
+<ul>
+  <li><strong>品类自定义</strong>：品类结构、属性 Schema、筛选维度全部由商家以 JSON 文本声明，系统在分钟级完成解析、校验、落库与衍生能力生成，无需开发介入与系统发版。</li>
+  <li><strong>AI 能力内建</strong>：智能客服、智能选品、智能组货三项能力以中台组件形式内建，共享大模型网关、向量检索、提示词管理与安全护栏，业务域通过标准接口按需编排。</li>
+</ul>
+
+<h2 id="2-2-建设目标">2.2 建设目标</h2>
+<table>
+  <thead><tr><th style="width:14%">目标编号</th><th style="width:30%">目标</th><th>衡量口径</th></tr></thead>
+  <tbody>
+  <tr><td>G-01</td><td>品类结构可自定义</td><td>商家提交合法 JSON 后，5 分钟内完成品类树、属性 Schema、动态表单与检索索引映射的生成与发布</td></tr>
+  <tr><td>G-02</td><td>品类导入可纠错</td><td>非法 JSON 必须返回可定位到「行号 + 字段路径」的错误信息，不得静默失败</td></tr>
+  <tr><td>G-03</td><td>智能客服可自助解决高频问题</td><td>物流、退换、商品咨询三类高频问题自助解决率达到 70% 以上</td></tr>
+  <tr><td>G-04</td><td>智能选品可提升转化</td><td>推荐位点击率相对人工运营位提升 20% 以上，并支持 A/B 实验归因</td></tr>
+  <tr><td>G-05</td><td>智能组货可提升客单价</td><td>组货方案使客单价提升 10% 以上，组合毛利率不低于单品均值</td></tr>
+  <tr><td>G-06</td><td>能力可复用、模型可替换</td><td>更换或新增底层大模型不影响业务代码，仅需调整网关路由配置</td></tr>
+  </tbody>
+</table>
+
+<h2 id="2-3-用户角色与特征">2.3 用户角色与特征</h2>
+<table>
+  <thead><tr><th style="width:16%">角色</th><th style="width:14%">角色类型</th><th>特征与主要诉求</th></tr></thead>
+  <tbody>
+  <tr><td>消费者</td><td>人类角色</td><td>移动端为主、PC 端为辅；关注商品是否好找、价格是否透明、问题能否即时解答、能否一键买到成套商品</td></tr>
+  <tr><td>商家 / 运营人员</td><td>人类角色</td><td>关注品类能否自行定义、商品能否快速上架、推荐与组货策略能否自助配置、经营数据是否可看</td></tr>
+  <tr><td>平台管理员</td><td>人类角色</td><td>关注权限边界、模型与知识库的可控性、内容合规与审计追溯</td></tr>
+  <tr><td>支付网关</td><td>外部系统</td><td>提供支付下单、支付结果异步通知与退款能力</td></tr>
+  <tr><td>大模型服务</td><td>外部系统</td><td>提供大语言模型的对话生成与向量化能力，可私有化部署或调用云端 API</td></tr>
+  <tr><td>物流服务商</td><td>外部系统</td><td>提供运单创建、轨迹查询与时效预估能力</td></tr>
+  </tbody>
+</table>
+
+<h2 id="2-4-运行环境与约束">2.4 运行环境与约束</h2>
+<table>
+  <thead><tr><th style="width:20%">类别</th><th>约束说明</th></tr></thead>
+  <tbody>
+  <tr><td>客户端</td><td>消费者端以移动端 Web / H5 / 微信小程序为主，兼容 PC 浏览器；商家端与运营端为 PC 浏览器 Web 应用</td></tr>
+  <tr><td>服务端</td><td>后端服务以容器化方式部署于 Kubernetes 集群；AI 推理服务可私有化部署或调用云端 API</td></tr>
+  <tr><td>数据存储</td><td>业务数据使用关系型数据库；品类与商品检索使用搜索引擎；推荐与知识检索使用向量数据库；会话与热点数据使用缓存</td></tr>
+  <tr><td>合规约束</td><td>用户个人信息采集遵循最小必要原则；AI 生成内容须经安全护栏过滤；组货推荐不得进行虚假比价与价格欺诈</td></tr>
+  <tr><td>技术约束</td><td>品类 JSON 结构的版本必须向后兼容；AI 能力的提示词与策略须支持热更新，不允许硬编码在业务代码中</td></tr>
+  </tbody>
+</table>
+
+<h2 id="2-5-设计假设与依赖">2.5 设计假设与依赖</h2>
+<ul>
+  <li>假设商家具备编写或由第三方工具生成 JSON 文本的基本能力；系统提供可视化辅助编辑与示例模板以降低门槛。</li>
+  <li>假设底层大模型服务具备稳定的推理能力与可接受的首字延迟；系统对模型不可用场景设计了降级路径。</li>
+  <li>依赖支付网关与物流开放平台的服务能力；这两类外部系统的异常不得导致订单主流程数据不一致。</li>
+</ul>
+
+<h1>3 需求分析</h1>
+
+<h2 id="3-1-需求获取与分析方法">3.1 需求获取与分析方法</h2>
+<p>本系统的需求分析以 UML 2.5 为统一建模语言，采用「自顶向下分解、自底向上验证」的双向路径：</p>
+<ul>
+  <li><strong>用例驱动</strong>：先从参与者与系统边界出发绘制用例图（图 3-1 至图 3-4），明确「谁、对系统做什么、得到什么结果」，形成功能需求的主干。</li>
+  <li><strong>流程细化</strong>：对自定义品类导入、智能选品、智能组货三条关键链路绘制活动图（图 3-6 至图 3-8），把用例展开为活动、判断与并行分支，暴露业务规则与异常路径。</li>
+  <li><strong>概念沉淀</strong>：以领域概念类图（图 3-9）沉淀核心业务概念及其关系，形成术语一致性与数据建模的共同基础。</li>
+  <li><strong>功能确权</strong>：以功能结构图（图 3-5）给出功能分解树，并逐项登记功能需求清单与优先级。</li>
+</ul>
+
+<h2 id="3-2-系统用例分析">3.2 系统用例分析</h2>
+
+<h3 id="3-2-1-系统总体用例">3.2.1 系统总体用例</h3>
+<p>系统总体用例图以模块级粒度给出系统边界与六大服务的对应关系。系统以「智选云 AI 电商在线售货系统」为边界，对外暴露消费者侧的交易与 AI 能力、供给侧的商品与品类管理、治理侧的运营与平台治理三组服务，并与支付网关、大模型服务、物流服务商三类外部系统协作。</p>
+<img src="diagrams/03-01_uc_overall.svg" alt="图 3-1 系统总体用例图" />
+<p class="figcap">图 3-1　智选云 AI 电商在线售货系统 总体用例图（源文件 <code>03-01_uc_overall.puml</code>）</p>
+
+<table>
+  <thead><tr><th style="width:16%">用例编号</th><th style="width:22%">用例名称</th><th style="width:16%">主要参与者</th><th>用例说明</th></tr></thead>
+  <tbody>
+  <tr><td>UC-01</td><td>商品交易与订单履约</td><td>消费者、支付网关、物流服务商</td><td>覆盖商品浏览检索、购物车、下单支付、订单与物流跟踪的完整交易链路</td></tr>
+  <tr><td>UC-02</td><td>智能客服服务</td><td>消费者、大模型服务</td><td>以多轮对话形式回答商品、订单、物流、退换等咨询，必要时转接人工</td></tr>
+  <tr><td>UC-03</td><td>智能选品服务</td><td>消费者、大模型服务</td><td>基于用户画像与场景上下文生成个性化商品推荐列表</td></tr>
+  <tr><td>UC-04</td><td>智能组货服务</td><td>消费者、大模型服务</td><td>以主商品为中心生成成套搭配方案与组合优惠</td></tr>
+  <tr><td>UC-05</td><td>品类与商品管理</td><td>商家 / 运营人员</td><td>以 JSON 自定义品类结构，并在其约束下管理商品与库存</td></tr>
+  <tr><td>UC-06</td><td>运营与平台治理</td><td>商家、平台管理员</td><td>营销活动、数据看板、权限管理、模型与知识库治理</td></tr>
+  </tbody>
+</table>
+
+<h3 id="3-2-2-消费者用例">3.2.2 消费者用例</h3>
+<p>消费者用例图细化买家视角的八项用例，并显式标注 AI 能力的嵌入位置：智能选品推荐以 <code>&lt;&lt;extend&gt;&gt;</code> 扩展「浏览与检索商品」，智能组货搭配以 <code>&lt;&lt;include&gt;&gt;</code> 复用到「管理购物车」，智能客服咨询以 <code>&lt;&lt;include&gt;&gt;</code> 复用到「跟踪订单与物流」。</p>
+<img src="diagrams/03-02_uc_consumer.svg" alt="图 3-2 消费者用例图" />
+<p class="figcap">图 3-2　消费者用例图（源文件 <code>03-02_uc_consumer.puml</code>）</p>
+
+<h3 id="3-2-3-商家与平台管理员用例">3.2.3 商家与平台管理员用例</h3>
+<p>供给侧与治理侧用例图突出了本系统的差异化能力：「自定义商品品类(JSON)」以 <code>&lt;&lt;include&gt;&gt;</code> 关系包含「品类解析与结构校验」，并以 <code>&lt;&lt;extend&gt;&gt;</code> 方式扩展「商品与库存管理」——即标准商品管理是基线能力，JSON 自定义品类是在其之上按需启用的增强能力。</p>
+<img src="diagrams/03-03_uc_merchant.svg" alt="图 3-3 商家与平台管理员用例图" />
+<p class="figcap">图 3-3　商家与平台管理员用例图（源文件 <code>03-03_uc_merchant.puml</code>）</p>
+
+<h3 id="3-2-4-AI-能力域用例细化">3.2.4 AI 能力域用例细化</h3>
+<p>AI 能力域用例细化图将三项 AI 能力展开到可验证的粒度，明确每一项能力的构成用例及其与其他用例的 <code>&lt;&lt;include&gt;&gt;</code> / <code>&lt;&lt;extend&gt;&gt;</code> 关系。其中 <code>&lt;&lt;extend&gt;&gt;</code> 关系对应「按需触发的增强路径」：例如「转接人工客服」是智能客服咨询在置信度不足时的可选扩展路径，「冷启动热门兜底」是智能选品推荐在画像不足时的可选扩展路径。</p>
+<img src="diagrams/03-04_uc_ai.svg" alt="图 3-4 AI 能力域用例细化图" />
+<p class="figcap">图 3-4　AI 能力域用例细化图（源文件 <code>03-04_uc_ai.puml</code>）</p>
+
+<div data-component="callout">
+<strong>需求要点：</strong>三项 AI 能力均须支持「可降级」。大模型服务不可用时，智能客服降级为知识库精确匹配 + 常见问题列表，智能选品降级为热门榜，智能组货降级为同品类单品推荐。任何情况下不得因 AI 服务异常阻断下单主流程。
+</div>
+
+<h2 id="3-3-功能需求">3.3 功能需求</h2>
+
+<h3 id="3-3-1-功能结构">3.3.1 功能结构</h3>
+<p>系统功能结构图以工作分解结构（WBS）形式给出六大子系统的功能分解树，是功能需求清单的组织索引。</p>
+<img src="diagrams/03-05_func_tree.svg" alt="图 3-5 系统功能结构图" />
+<p class="figcap">图 3-5　系统功能结构图（源文件 <code>03-05_func_tree.puml</code>）</p>
+
+<h3 id="3-3-2-功能需求清单">3.3.2 功能需求清单</h3>
+<p>下表按子系统登记功能需求。优先级定义：<strong>P0</strong> 为系统上线必需，缺失则业务不可用；<strong>P1</strong> 为首个迭代必须具备；<strong>P2</strong> 为后续迭代增强。</p>
+<table>
+  <thead><tr><th style="width:10%">编号</th><th style="width:22%">功能名称</th><th style="width:8%">优先级</th><th>功能描述</th></tr></thead>
+  <tbody>
+  <tr><td>FR-01</td><td>商品浏览与检索</td><td>P0</td><td>支持按品类树逐级浏览、关键词检索、按品类属性筛选与排序；筛选维度由品类属性 Schema 中的 <code>filterable</code> 字段动态决定</td></tr>
+  <tr><td>FR-02</td><td>商品详情与规格选择</td><td>P0</td><td>展示 SPU 信息并按 SKU 展示规格、价格与库存；规格选择项由该品类的属性 Schema 动态渲染</td></tr>
+  <tr><td>FR-03</td><td>购物车管理</td><td>P0</td><td>支持单品加入、组合方案整单加入、数量修改、勾选结算与失效商品提示</td></tr>
+  <tr><td>FR-04</td><td>下单与支付</td><td>P0</td><td>支持地址选择、优惠计算、订单创建、库存锁定、支付发起与支付结果回调处理；回调须验签且幂等</td></tr>
+  <tr><td>FR-05</td><td>订单与物流跟踪</td><td>P0</td><td>支持订单列表与详情、状态流转展示、物流轨迹查询、确认收货</td></tr>
+  <tr><td>FR-06</td><td>售后与评价</td><td>P1</td><td>支持取消订单、申请退款退货、上传凭证、商品评价与追评</td></tr>
+  <tr><td>FR-07</td><td>JSON 品类定义导入</td><td>P0</td><td>支持粘贴或上传 JSON 文本，支持示例模板下载与可视化辅助编辑</td></tr>
+  <tr><td>FR-08</td><td>品类结构解析与校验</td><td>P0</td><td>解析 JSON 为品类树，执行语法校验与结构语义校验，返回可定位的错误清单</td></tr>
+  <tr><td>FR-09</td><td>属性 Schema 与动态表单生成</td><td>P0</td><td>依据属性 Schema 自动生成商品发布/编辑表单，无需为新增品类开发页面</td></tr>
+  <tr><td>FR-10</td><td>检索索引映射生成</td><td>P0</td><td>依据 <code>filterable</code> / <code>searchable</code> 属性自动生成检索与筛选索引映射，并同步至检索引擎</td></tr>
+  <tr><td>FR-11</td><td>商品 SPU / SKU 管理</td><td>P0</td><td>支持商品发布、上下架、SKU 规格与价格维护、图文素材管理</td></tr>
+  <tr><td>FR-12</td><td>库存管理</td><td>P0</td><td>支持多仓库存、库存锁定与扣减、库存预警、库存流水记录</td></tr>
+  <tr><td>FR-13</td><td>智能客服多轮对话</td><td>P0</td><td>支持流式答复、多轮上下文记忆、会话超时与归档</td></tr>
+  <tr><td>FR-14</td><td>意图识别与知识检索增强</td><td>P0</td><td>识别用户意图并抽取槽位；知识咨询走向量检索增强生成，业务意图走工具调用</td></tr>
+  <tr><td>FR-15</td><td>业务工具调用</td><td>P1</td><td>客服可调用订单查询、物流查询、库存查询等受控业务工具，工具须声明出入参 Schema</td></tr>
+  <tr><td>FR-16</td><td>转接人工客服</td><td>P1</td><td>置信度低于阈值或用户主动要求时，将会话摘要与上下文转交人工坐席</td></tr>
+  <tr><td>FR-17</td><td>用户画像构建</td><td>P1</td><td>基于长期偏好与实时行为序列构建画像，用于召回与排序</td></tr>
+  <tr><td>FR-18</td><td>多路召回与个性化排序</td><td>P0</td><td>支持协同过滤、向量语义、热门新品等多路召回，并统一精排打分</td></tr>
+  <tr><td>FR-19</td><td>推荐业务规则过滤与重排</td><td>P0</td><td>过滤下架、无库存、限购与不合规商品；执行品类打散等多样性重排</td></tr>
+  <tr><td>FR-20</td><td>推荐埋点与策略实验</td><td>P1</td><td>记录曝光、点击、加购、成交埋点；支持推荐策略 A/B 实验与效果归因</td></tr>
+  <tr><td>FR-21</td><td>组货场景识别与配套召回</td><td>P0</td><td>识别搭配场景，通过关联规则、知识图谱与大模型语义补全召回配套 SKU</td></tr>
+  <tr><td>FR-22</td><td>组货可行性校验与组合定价</td><td>P0</td><td>校验库存、物流可达与限购；计算组合价、优惠叠加与组合毛利率</td></tr>
+  <tr><td>FR-23</td><td>一键加购组合</td><td>P0</td><td>支持将整套组货方案一次加入购物车，并在结算时保留组合标识用于归因</td></tr>
+  <tr><td>FR-24</td><td>营销活动与优惠券</td><td>P1</td><td>支持满减、折扣、优惠券、限时活动及其与组货组合价的叠加规则配置</td></tr>
+  <tr><td>FR-25</td><td>运营数据看板</td><td>P1</td><td>提供交易、流量、推荐与组货效果的多维度看板</td></tr>
+  <tr><td>FR-26</td><td>用户与权限管理</td><td>P0</td><td>支持角色、菜单、数据范围三级权限控制与操作审计</td></tr>
+  <tr><td>FR-27</td><td>AI 模型与知识库配置</td><td>P1</td><td>支持模型路由、提示词模板版本管理、知识库文档导入与切片、检索参数配置</td></tr>
+  </tbody>
+</table>
+
+<h2 id="3-4-关键业务流程分析">3.4 关键业务流程分析</h2>
+
+<h3 id="3-4-1-自定义商品品类-JSON-的导入与解析">3.4.1 自定义商品品类 JSON 的导入与解析</h3>
+<p>该流程是系统最具特色的业务链路。活动图显式刻画了两处判断分支（JSON 语法合法性、结构语义合法性）与两处异常出口，并把「衍生能力生成」抽象为独立泳道，体现「一次声明、多端生效」的设计意图。</p>
+<img src="diagrams/03-06_activity_json_import.svg" alt="图 3-6 JSON 品类定义导入与解析活动图" />
+<p class="figcap">图 3-6　JSON 品类定义导入与解析活动图（源文件 <code>03-06_activity_json_import.puml</code>）</p>
+
+<h3 id="3-4-2-智能选品推荐">3.4.2 智能选品推荐</h3>
+<p>智能选品活动图给出「画像构建 → 多路召回 → 排序与重排 → 兜底 → 闭环反馈」的完整决策链路，其中多路召回以并行分支（fork）表达，体现召回路径之间的独立性；闭环反馈环节把行为数据回流为样本与画像更新，形成推荐系统的自增强机制。</p>
+<img src="diagrams/03-07_activity_selection.svg" alt="图 3-7 智能选品推荐活动图" />
+<p class="figcap">图 3-7　智能选品推荐活动图（源文件 <code>03-07_activity_selection.puml</code>）</p>
+
+<h3 id="3-4-3-智能组货搭配">3.4.3 智能组货搭配</h3>
+<p>智能组货活动图把「会推荐」升级为「能成交」：在配套召回之后强制加入可行性与组合定价校验，只有当组合在库存、履约、价格与毛利四个维度同时成立时才输出方案，否则降级为单品推荐。这一约束避免了大模型产生「看似合理但不可售」的搭配方案。</p>
+<img src="diagrams/03-08_activity_grouping.svg" alt="图 3-8 智能组货搭配活动图" />
+<p class="figcap">图 3-8　智能组货搭配活动图（源文件 <code>03-08_activity_grouping.puml</code>）</p>
+
+<h2 id="3-5-领域模型分析">3.5 领域模型分析</h2>
+<p>领域概念类图从业务视角抽象出「用户与商家」「品类体系」「商品与库存」「交易」「AI 能力」五个概念域，共 22 个核心概念。其中「品类 — 品类属性」的强组合关系是动态品类建模的语义基础：品类属性不能脱离品类独立存在，其生命周期随品类版本一同演进。</p>
+<img src="diagrams/03-09_class_domain.svg" alt="图 3-9 领域概念类图" />
+<p class="figcap">图 3-9　领域概念类图（源文件 <code>03-09_class_domain.puml</code>）</p>
+
+<h3 id="3-5-1-核心业务规则">3.5.1 核心业务规则</h3>
+<table>
+  <thead><tr><th style="width:12%">规则编号</th><th style="width:24%">适用对象</th><th>规则描述</th></tr></thead>
+  <tbody>
+  <tr><td>BR-01</td><td>品类</td><td>品类编码在商家范围内全局唯一；品类树的层级深度不超过 5 层</td></tr>
+  <tr><td>BR-02</td><td>品类</td><td>仅叶子品类允许挂载商品；非叶子品类不得直接发布商品</td></tr>
+  <tr><td>BR-03</td><td>品类属性</td><td>同一品类内属性编码唯一；子品类自动继承父品类属性，且可新增不可覆盖</td></tr>
+  <tr><td>BR-04</td><td>品类属性</td><td>属性数据类型必须属于白名单：字符串、整数、小数、布尔、枚举、日期、多值枚举、富文本、图片</td></tr>
+  <tr><td>BR-05</td><td>商品与 SKU</td><td>SKU 的售卖价格不得超过其市场价；同一 SPU 下 SKU 的规格组合不得重复</td></tr>
+  <tr><td>BR-06</td><td>库存</td><td>库存扣减必须满足「可用量 = 总量 − 锁定量 ≥ 需求量」，且以行级锁保证并发安全</td></tr>
+  <tr><td>BR-07</td><td>订单</td><td>订单状态流转必须符合订单状态机；已支付订单的取消必须先经退款流程</td></tr>
+  <tr><td>BR-08</td><td>支付</td><td>支付回调必须验签且幂等；同一支付单重复回调只允许产生一次状态变更</td></tr>
+  <tr><td>BR-09</td><td>智能选品</td><td>推荐结果中不得出现已下架、无库存或超出限购数量的商品</td></tr>
+  <tr><td>BR-10</td><td>智能选品</td><td>推荐结果须满足多样性约束：同一叶子品类占比不超过结果条数的 50%</td></tr>
+  <tr><td>BR-11</td><td>智能组货</td><td>组货方案必须包含至少 2 个 SKU；组合中每个 SKU 均须可售且在可送达范围内</td></tr>
+  <tr><td>BR-12</td><td>智能组货</td><td>组合毛利率不得低于该主商品的单品毛利率；否则该方案不予输出</td></tr>
+  <tr><td>BR-13</td><td>智能客服</td><td>答复内容须经安全护栏过滤；涉及金额、时效承诺等敏感表述须以业务系统返回值而非模型生成为准</td></tr>
+  <tr><td>BR-14</td><td>智能客服</td><td>会话上下文保留最近 10 轮对话；超出部分须压缩为摘要后参与提示词构建</td></tr>
+  </tbody>
+</table>
+
+<h2 id="3-6-自定义商品品类-JSON-规范">3.6 自定义商品品类 JSON 规范</h2>
+<p>本节定义商家提交的品类定义 JSON 规范，是该能力的需求契约。</p>
+
+<h3 id="3-6-1-结构说明">3.6.1 结构说明</h3>
+<p>品类定义 JSON 采用嵌套结构：顶层为 <code>schemaVersion</code> 与唯一根品类 <code>category</code>；每个品类节点包含编码、名称、排序、属性列表与子品类列表。属性在层级上可继承，子品类自动获得父品类属性。</p>
+
+<h3 id="3-6-2-完整示例">3.6.2 完整示例</h3>
+<pre>{
+  "schemaVersion": "1.0",
+  "category": {
+    "code": "HOME_APPLIANCE",
+    "name": "家用电器",
+    "sort": 10,
+    "attributes": [
+      { "code": "brand", "name": "品牌", "dataType": "string",
+        "required": true, "filterable": true, "searchable": true },
+      { "code": "energyLevel", "name": "能效等级", "dataType": "enum",
+        "options": ["一级", "二级", "三级"], "required": true, "filterable": true },
+      { "code": "warrantyYears", "name": "整机保修年限", "dataType": "integer",
+        "unit": "年", "range": [1, 10], "required": false, "filterable": true }
+    ],
+    "children": [
+      {
+        "code": "HOME_APPLIANCE_KITCHEN",
+        "name": "厨房电器",
+        "sort": 20,
+        "attributes": [
+          { "code": "capacity", "name": "容量", "dataType": "decimal",
+            "unit": "L", "range": [0.5, 60], "required": false, "filterable": true }
+        ],
+        "children": [
+          {
+            "code": "HOME_APPLIANCE_KITCHEN_RICE_COOKER",
+            "name": "电饭煲",
+            "sort": 21,
+            "attributes": [
+              { "code": "innerPot", "name": "内胆材质", "dataType": "enum",
+                "options": ["铝合金", "不锈钢", "陶瓷", "铸铁"],
+                "required": true, "filterable": true },
+              { "code": "keepWarmHours", "name": "保温时长", "dataType": "integer",
+                "unit": "小时", "range": [0, 48], "required": false, "filterable": true }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "HOME_APPLIANCE_CLEANING",
+        "name": "清洁电器",
+        "sort": 30,
+        "attributes": [
+          { "code": "suctionPower", "name": "吸力", "dataType": "integer",
+            "unit": "Pa", "range": [1000, 40000], "required": false, "filterable": true }
+        ]
+      }
+    ]
+  }
+}</pre>
+
+<h3 id="3-6-3-字段说明">3.6.3 字段说明</h3>
+<table>
+  <thead><tr><th style="width:16%">字段</th><th style="width:12%">类型</th><th style="width:10%">必填</th><th>说明</th></tr></thead>
+  <tbody>
+  <tr><td>schemaVersion</td><td>字符串</td><td>是</td><td>规范版本号，当前支持 <code>1.0</code>；解析器按版本选择兼容策略</td></tr>
+  <tr><td>category.code</td><td>字符串</td><td>是</td><td>品类编码，建议大写下划线风格；同一商家范围内唯一，解析后作为检索与权限的作用域键</td></tr>
+  <tr><td>category.name</td><td>字符串</td><td>是</td><td>品类显示名称，长度不超过 64 字符</td></tr>
+  <tr><td>category.sort</td><td>整数</td><td>否</td><td>同级排序值，升序排列，缺省为 0</td></tr>
+  <tr><td>category.attributes[]</td><td>数组</td><td>否</td><td>该品类的属性定义列表；缺省表示该品类不新增属性</td></tr>
+  <tr><td>attributes[].code</td><td>字符串</td><td>是</td><td>属性编码，同一品类内唯一；解析后作为动态表单字段名与索引字段名</td></tr>
+  <tr><td>attributes[].name</td><td>字符串</td><td>是</td><td>属性显示名称</td></tr>
+  <tr><td>attributes[].dataType</td><td>枚举</td><td>是</td><td>数据类型，取值 <code>string / integer / decimal / boolean / enum / multiEnum / date / text / image</code></td></tr>
+  <tr><td>attributes[].required</td><td>布尔</td><td>否</td><td>是否必填，缺省 <code>false</code>；为 <code>true</code> 时商品发布必须提供该属性</td></tr>
+  <tr><td>attributes[].filterable</td><td>布尔</td><td>否</td><td>是否作为检索筛选维度，缺省 <code>false</code>；为 <code>true</code> 时生成索引映射</td></tr>
+  <tr><td>attributes[].searchable</td><td>布尔</td><td>否</td><td>是否参与全文检索，缺省 <code>false</code></td></tr>
+  <tr><td>attributes[].options</td><td>数组</td><td>条件必填</td><td><code>dataType</code> 为 <code>enum</code> / <code>multiEnum</code> 时必填，枚举取值列表</td></tr>
+  <tr><td>attributes[].unit</td><td>字符串</td><td>否</td><td>数值型属性的单位，用于表单后缀与筛选区间展示</td></tr>
+  <tr><td>attributes[].range</td><td>数组</td><td>否</td><td>数值型属性的合法取值区间 <code>[min, max]</code>，用于校验与滑块筛选</td></tr>
+  <tr><td>category.children[]</td><td>数组</td><td>否</td><td>子品类列表，递归同构；缺省表示该节点为叶子品类，可挂载商品</td></tr>
+  </tbody>
+</table>
+
+<h3 id="3-6-4-校验规则">3.6.4 校验规则</h3>
+<table>
+  <thead><tr><th style="width:12%">编号</th><th style="width:22%">校验项</th><th>校验规则与错误处理</th></tr></thead>
+  <tbody>
+  <tr><td>V-01</td><td>JSON 语法</td><td>必须为合法 JSON；不合法时返回 HTTP 400，并给出错误行号与字符偏移</td></tr>
+  <tr><td>V-02</td><td>规范版本</td><td><code>schemaVersion</code> 必须为受支持版本，否则返回 422</td></tr>
+  <tr><td>V-03</td><td>编码唯一性</td><td>同一层级及整棵品类树中 <code>code</code> 不得重复，重复时指出冲突路径</td></tr>
+  <tr><td>V-04</td><td>编码格式</td><td><code>code</code> 须匹配 <code>^[A-Z][A-Z0-9_]{1,63}$</code></td></tr>
+  <tr><td>V-05</td><td>层级深度</td><td>品类树深度不超过 5 层</td></tr>
+  <tr><td>V-06</td><td>属性编码唯一性</td><td>同一品类内属性编码唯一；与继承自父品类的属性编码冲突时视为覆盖意图并给出警告</td></tr>
+  <tr><td>V-07</td><td>数据类型白名单</td><td><code>dataType</code> 必须属于白名单集合</td></tr>
+  <tr><td>V-08</td><td>枚举完备性</td><td><code>enum</code> / <code>multiEnum</code> 必须提供非空 <code>options</code></td></tr>
+  <tr><td>V-09</td><td>数值区间合法性</td><td><code>range</code> 须为两元素数组且 <code>min &lt;= max</code>；仅对数值型属性生效</td></tr>
+  <tr><td>V-10</td><td>循环引用</td><td>品类树不得存在循环引用；深度优先遍历时若访问到已在栈中的节点即判失败</td></tr>
+  <tr><td>V-11</td><td>结构完整性</td><td><code>category</code> 必填且必须提供非空 <code>code</code> 与 <code>name</code></td></tr>
+  <tr><td>V-12</td><td>容量约束</td><td>单次导入的品类节点总数不超过 2000，属性总数不超过 20000，JSON 文本不超过 2 MB</td></tr>
+  </tbody>
+</table>
+
+<div data-component="callout">
+<strong>解析契约：</strong>解析器必须做到「全量校验、一次反馈」。即：不得在遇到第一个错误时立即中断，而应收集全部可判定的错误后统一返回，使商家一次修改即可通过。<strong>纯校验（dry-run）与正式提交必须分离</strong>：dry-run 仅返回校验结果与将要生成的表单预览，不产生任何持久化副作用。
+</div>
+
+<h2 id="3-7-非功能需求">3.7 非功能需求</h2>
+<table>
+  <thead><tr><th style="width:12%">编号</th><th style="width:12%">类别</th><th style="width:24%">需求项</th><th>指标与验收口径</th></tr></thead>
+  <tbody>
+  <tr><td>NFR-01</td><td>性能</td><td>商品列表接口响应时间</td><td>在 500 并发下 P95 ≤ 300 ms，P99 ≤ 800 ms</td></tr>
+  <tr><td>NFR-02</td><td>性能</td><td>智能推荐接口响应时间</td><td>P95 ≤ 500 ms（不含埋点上报）；支持结果缓存与优雅降级</td></tr>
+  <tr><td>NFR-03</td><td>性能</td><td>智能客服首字延迟</td><td>首字流式返回 P95 ≤ 1.5 s，完整答复 P95 ≤ 8 s</td></tr>
+  <tr><td>NFR-04</td><td>性能</td><td>品类 JSON 导入处理时间</td><td>1000 节点规模下 ≤ 10 s；校验与落库分离，落库在事务内完成</td></tr>
+  <tr><td>NFR-05</td><td>并发</td><td>下单峰值承载</td><td>支持 2000 TPS 的订单创建峰值；库存扣减不出现超卖</td></tr>
+  <tr><td>NFR-06</td><td>可用性</td><td>系统整体可用性</td><td>核心交易链路年度可用性不低于 99.9%；AI 能力不可用不影响交易链路</td></tr>
+  <tr><td>NFR-07</td><td>可用性</td><td>AI 能力降级</td><td>大模型服务异常时自动切换备用模型；备用模型亦不可用时降级为规则策略并给出用户可见提示</td></tr>
+  <tr><td>NFR-08</td><td>安全</td><td>身份与权限</td><td>统一鉴权，支持细粒度到「数据行」的权限控制；敏感操作留痕可审计</td></tr>
+  <tr><td>NFR-09</td><td>安全</td><td>支付安全</td><td>支付回调验签、金额二次校验、防重放；支付相关字段全链路加密传输</td></tr>
+  <tr><td>NFR-10</td><td>安全</td><td>AI 安全护栏</td><td>输入侧检测提示注入与越权意图，输出侧过滤违规与不当内容；工具调用须经白名单与参数校验</td></tr>
+  <tr><td>NFR-11</td><td>安全</td><td>数据合规</td><td>个人信息采集遵循最小必要；日志中的手机号、地址等字段须脱敏</td></tr>
+  <tr><td>NFR-12</td><td>可扩展性</td><td>品类结构可扩展</td><td>新增品类与属性不需要代码变更与发版；品类版本可回滚</td></tr>
+  <tr><td>NFR-13</td><td>可扩展性</td><td>模型与策略可替换</td><td>大模型、向量模型、排序模型均可通过配置替换；提示词模板支持版本管理与灰度</td></tr>
+  <tr><td>NFR-14</td><td>可维护性</td><td>可观测性</td><td>关键链路全链路追踪；AI 调用记录 token 消耗、时延与命中率；告警分级</td></tr>
+  <tr><td>NFR-15</td><td>兼容性</td><td>移动端适配</td><td>消费者端在 360 px 及以上宽度下无横向滚动；主流移动浏览器与微信内置浏览器一致可用</td></tr>
+  <tr><td>NFR-16</td><td>兼容性</td><td>品类规范向后兼容</td><td>新增属性字段不得破坏历史 JSON 的解析；解析器对未知字段采取忽略并告警的策略</td></tr>
+  </tbody>
+</table>
+
+<h2 id="3-8-需求优先级与验收标准">3.8 需求优先级与验收标准</h2>
+<table>
+  <thead><tr><th style="width:14%">里程碑</th><th style="width:34%">范围</th><th>验收标准</th></tr></thead>
+  <tbody>
+  <tr><td>M1 基础交易</td><td>FR-01 ~ FR-06、FR-11、FR-12、FR-26</td><td>可完成「浏览—加购—下单—支付—收货」完整闭环；库存不超卖</td></tr>
+  <tr><td>M2 动态品类</td><td>FR-07 ~ FR-10</td><td>提交一只含 3 层、4 个品类、12 个属性的 JSON，5 分钟内完成导入并可直接发布商品；非法 JSON 的错误定位准确</td></tr>
+  <tr><td>M3 智能客服</td><td>FR-13 ~ FR-16</td><td>物流、退换、商品咨询三类问题各 20 条测试用例，自助解决率 ≥ 70%；转人工链路完整</td></tr>
+  <tr><td>M4 智能选品</td><td>FR-17 ~ FR-20</td><td>A/B 实验下推荐位点击率相对人工位提升 ≥ 20%；业务规则过滤零误放</td></tr>
+  <tr><td>M5 智能组货</td><td>FR-21 ~ FR-23</td><td>组合方案的可售率 100%（不存在不可购买的方案）；客单价提升 ≥ 10%</td></tr>
+  <tr><td>M6 运营治理</td><td>FR-24、FR-25、FR-27</td><td>模型与提示词可配置切换；看板数据与实际交易数据一致</td></tr>
+  </tbody>
+</table>
+
+<h1>4 需求追踪矩阵</h1>
+<p>需求追踪矩阵建立「需求—用例—UML 图—设计章节」的双向可追溯关系，用于验证需求的完整覆盖与后续变更影响分析。</p>
+<table>
+  <thead><tr><th style="width:12%">需求编号</th><th style="width:18%">对应用例</th><th style="width:14%">UML 图</th><th>设计章节</th></tr></thead>
+  <tbody>
+  <tr><td>FR-01 ~ FR-06</td><td>UC-01 商品交易与订单履约</td><td>图 3-1、3-2、4-7、4-10</td><td>4.2、4.3、4.5、4.6</td></tr>
+  <tr><td>FR-07 ~ FR-10</td><td>UC-05 品类与商品管理</td><td>图 3-3、3-6、4-9</td><td>4.3、4.5、4.6、4.7</td></tr>
+  <tr><td>FR-11、FR-12</td><td>UC-05 品类与商品管理</td><td>图 3-3、3-5</td><td>4.3、4.6</td></tr>
+  <tr><td>FR-13 ~ FR-16</td><td>UC-02 智能客服服务</td><td>图 3-4、4-11</td><td>4.3、4.4、4.5</td></tr>
+  <tr><td>FR-17 ~ FR-20</td><td>UC-03 智能选品服务</td><td>图 3-4、3-7、4-12</td><td>4.3、4.5</td></tr>
+  <tr><td>FR-21 ~ FR-23</td><td>UC-04 智能组货服务</td><td>图 3-4、3-8、4-13</td><td>4.3、4.5</td></tr>
+  <tr><td>FR-24、FR-25</td><td>UC-06 运营与平台治理</td><td>图 3-1、3-5</td><td>4.2、4.4</td></tr>
+  <tr><td>FR-26、FR-27</td><td>UC-06 运营与平台治理</td><td>图 3-3、3-5</td><td>4.3、4.4、4.7</td></tr>
+  </tbody>
+</table>
+
+<h1>5 结论与后续工作</h1>
+<p>本报告以 UML 2.5 为统一建模语言，完成了对「智选云 AI 电商在线售货系统」的需求分析工作：以 4 张用例图界定系统边界与参与者视角，以功能结构图与 27 项功能需求确立功能基线，以 3 张活动图细化关键业务流程，以 1 张领域概念类图沉淀 22 项业务概念与 14 条核心业务规则，并对最具特色的「JSON 自定义品类」能力给出了完整的需求契约（含结构示例、字段说明与 12 条校验规则）。</p>
+<p>后续工作包括：</p>
+<ol>
+  <li>依据本报告开展详细设计，产出《系统设计报告》，将需求映射为包结构、类结构、组件契约、部署形态与数据模型。</li>
+  <li>建立需求变更控制机制：品类 JSON 规范的任何调整必须同步更新本文档的 3.6 节与校验规则表，并评估对历史数据的影响。</li>
+  <li>在迭代中逐步细化非功能需求的压测口径，把指标转化为可执行的性能测试用例。</li>
+</ol>
+
+</section>
+
+  </article>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-text">
+      <p><strong>智选云 AI 电商在线售货系统</strong>（AI-ECP · AI E-Commerce Platform） · 需求分析报告 AIECP-SRS-001 · 系统设计报告 AIECP-SDD-001</p>
+      <p class="muted">本文档集由 UML 2.5 建模生成，图源为 PlantUML，可离线浏览。图集共 22 幅，覆盖用例图、活动图、类图、包图、组件图、部署图、状态图与时序图。</p>
+      <p class="muted">线上地址：<a href="https://ai-ecp-uml-design.app.workbuddy.host/">https://ai-ecp-uml-design.app.workbuddy.host/</a></p>
+    </div>
+    <div class="qr-mini">
+      <img src="assets/qrcode.svg" alt="站点访问二维码" width="104" height="104" />
+      <span>手机扫码访问</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+
+</body>
+</html>
