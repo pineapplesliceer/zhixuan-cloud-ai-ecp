@@ -10,7 +10,11 @@
 
 ## 🌐 在线演示
 
-**主链接**：https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host
+**主站（含 22 幅 UML 图与正式报告）**：
+👉 https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host/
+
+**动态电商 SPA 直达**（推荐体验此入口）：
+👉 https://2a868c4f84b54117a60e337b65577b83.app.workbuddy.host/app.html
 
 打开后建议体验路径：
 - 🏠 首页 → 浏览商品 → 体验「智能组货」一键加购
